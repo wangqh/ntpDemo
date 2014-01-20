@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<link href="css/DTotal.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+
+    <!--老师列表模板-->
+    <script id="listTeacherTemplate" type="x-dot-template">
+        <ul class="listTeacher unstyled">
+        {{~it :item:index}}
+            <li>
+                <div class="hd"><a class="remove" href="#">&times;</a></div>
+                <div class="bd">
+                    <label class="pull-left" ><input type="checkbox" name="teacherGroup" id="{{=item.id}}"/></label>
+                    <div class="clearfix box">
+                            <div class="span3">
+                            <div class="type">
+                            <span>教  师</span>
+                    </div>
+                    <div class="person">
+                            <a href="{{=item.teacher.link}}" class="pull-left"><img src="{{=item.teacher.imgUrl || './images/face-placeholder.jpg'}}" alt=""/></a>
+                            <span>{{=item.teacher.name}}（{{=item.teacher.mail}}）<br />  {{=item.teacher.org}} {{=item.teacher.department}}</span>
+                    </div>
+                    </div>
+                    <div class="span2">
+                        <div class="time">
+                            <i class="icon-time"></i>
+                            {{=item.time}}
+                        </div>
+                        <div class="divider">
+                                <i class="icon-handshake"></i>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="type">
+                            <span>导  师</span>
+                        </div>
+                        <div class="person">
+                            {{?item.mentor}}
+                                <a href="{{=item.mentor.link}}" class="pull-left"><img src="{{=item.mentor.imgUrl || './images/face-placeholder.jpg'}}" alt=""/></a>
+                                <span>{{=item.mentor.name}}（{{=item.mentor.mail}}）<br /> {{=item.mentor.org}} {{=item.mentor.department}}</span>
+                            {{??}}
+                                <p align="center">本课程不需要导师参与</p>
+                            {{?}}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </li>
+        {{~}}
+        </ul>
+    </script>
+
+    <script src="js/doT.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav">
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"></a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+
+<section class="container">
+	<section class="clearfix mt20">
+	  <section class="col-left pull-left">
+    	<ul class="nav nav-list sidenav" id="sideNav">
+                <li class="nav-header first"><a href="#">学习跟踪</a></li>
+                <li class="nav-header active"><a href="#">授权学习</a></li>
+	            <li class="nav-header">
+                    <span>课程管理</span>
+	            </li>
+	            <li><a href="#"><i class="icon-course-series"></i>我的系列课程</a></li>
+	            <li><a href="#"><i class="icon-course"></i>我的课程</a></li>
+	             <li class="nav-header">
+                     <span>课程素材库</span>
+	            </li>
+                <li><a href="#"><i class="icon-video"></i>视频</a></li>
+                <li><a href="#"><i class="icon-doc"></i>文档</a></li>
+                <li><a href="#"><i class="icon-ppt"></i>幻灯片</a></li>
+                <li><a href="#"><i class="icon-exam"></i>测试</a></li>
+                <li><a href="#"><i class="icon-task"></i>作业</a></li>
+	    </ul>
+	  </section>
+		<section class="w790 pull-right" id="rightCont">
+	        <div class="page-header bder2">
+                <span class="muted">我正在看：</span>    授权学习
+                <div class="backHome">
+                    <a href="#"><span class="muted">返回</span>主管<span class="muted">首页</span> <i class="icon-home icon-white"></i> </a>
+                </div>
+	        </div>
+            <div class="page-body authorizedBody">
+                <section class="section mt20">
+                    <div class="media">
+                        <div class="pull-left"><img class="media-object" src="./images/zht-main-img.jpg" alt=""/></div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h2>集团雅思基础口语新教师备课课程</h2>
+                            </div>
+                            <p>集团国外考试推广管理中心</p>
+                            <div class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i>
+                                 </span>
+                                        <b class="text-warning">8.0</b>
+                            </div>
+                            <div class="media-foot">
+                                <a class="btn btn-primary btn-large" href="#">查看课程详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section mt20">
+                    <form action="#rightCont" id="formAddTeacher">
+                        <input type="text" required name="inputTeacher" id="inputTeacher" class="input-block" placeholder="授权某位老师学习本课程"/>
+                        <div class="divider">
+                            <i class="icon-handshake"></i>
+                        </div>
+                        <input type="text" required name="inputMentor" id="inputMentor" class="input-block" placeholder="为该课程指定一位导师"/>
+                        <div class="divider">
+                            <button class="btn btn-primary btn-large" type="submit">添加</button>
+                    </form>
+                </section>
+                <section class="section box-control">
+                    <div class="hd">
+                        <div class="btn-toolbar">
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    操作
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#rightCont">导出列表</a></li>
+                                    <li><a href="#rightCont">打包下载</a></li>
+                                    <li><a href="#rightCont">批量删除</a></li>
+                                </ul>
+                            </div>
+                            <form class="toolbar-search">
+                                <input type="text" class="search" placeholder="搜索条目">
+                                <i class="icon-search"></i>
+                            </form>
+                            <span class="showState">
+                                <span class="muted">当前显示：</span>含“<a href="#">杨</a>”的用户
+                            </span>
+                            <a class="btn btn-link" href="#rightCont">清空搜索结果</a>
+                        </div>
+                    </div>
+                    <div class="bd">
+                        <div class="btn-toolbar">
+                            <label class="muted">排序</label>
+                            <div class="btn-group btns-radio" data-toggle="buttons-radio">
+                                <button class="btn btn-large active" type="button">时间</button>
+                                <button class="btn btn-large" type="button">教师</button>
+                                <button class="btn btn-large" type="button">导师</button>
+                            </div>
+                            <label class="radio inline" for="selectCurrPage"><input type="radio" id="selectCurrPage" name="selectCheckbox" checked />选中本页</label>
+                            <label class="radio inline" for="selectAll"><input type="radio" id="selectAll" name="selectCheckbox" />选中全部</label>
+                            <div class="pages pull-right">
+                                <div class="span2">
+                                    第<span> 1 - 10</span> / <span>109</span> 条
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-ctrl" type="button" disabled><i class="icon-chevron-left icon-white"></i></button>
+                                    <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="listTeacher">
+                    <ul class="listTeacher unstyled">
+                        <li>
+                            <div class="hd"><a class="remove" href="#">&times;</a></div>
+                            <div class="bd">
+                                <label class="pull-left" ><input type="checkbox" name="teacherGroup" id="teacherGroup00"/></label>
+                                    <div class="clearfix box">
+                                        <div class="span3">
+                                            <div class="type">
+                                                <span>教  师</span>
+                                            </div>
+                                            <div class="person">
+                                                <a href="#rightCont" class="pull-left"><img src="./images/temp-face36.jpg" alt=""/></a>
+                                                <span>魏紫（weizi5@xdf.cn） 广州学校 国外考试部</span>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="time">
+                                                <i class="icon-time"></i>
+                                                2013/02/14 10:01 AM
+                                            </div>
+                                            <div class="divider">
+                                                <i class="icon-handshake"></i>
+                                            </div>
+                                        </div>
+                                        <div class="span3">
+                                            <div class="type">
+                                                <span>导  师</span>
+                                            </div>
+                                            <div class="person">
+                                                <a href="#rightCont" class="pull-left"><img src="./images/temp-face36.jpg" alt=""/></a>
+                                                <span>魏紫（weizi5@xdf.cn） 广州学校 国外考试部</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="hd"><a class="remove" href="#">&times;</a></div>
+                            <div class="bd">
+                                <label class="pull-left" ><input type="checkbox" name="teacherGroup" id="teacherGroup00"/></label>
+                                <div class="clearfix box">
+                                    <div class="span3">
+                                        <div class="type">
+                                            <span>教  师</span>
+                                        </div>
+                                        <div class="person">
+                                            <a href="#rightCont" class="pull-left"><img src="./images/temp-face36.jpg" alt=""/></a>
+                                            <span>魏紫（weizi5@xdf.cn） 广州学校 国外考试部</span>
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <div class="time">
+                                            <i class="icon-time"></i>
+                                            2013/02/14 10:01 AM
+                                        </div>
+                                        <div class="divider">
+                                            <i class="icon-handshake"></i>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="type">
+                                            <span>导  师</span>
+                                        </div>
+                                        <div class="person">
+                                            <p align="center">本课程不需要导师参与</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <div class="pages">
+                    <div class="btn-group dropup">
+                        <button class="btn btn-primary btn-ctrl" type="button" disabled><i class="icon-chevron-left icon-white"></i></button>
+                        <button class="btn btn-primary btn-num" type="button">1</button>
+                        <button class="btn btn-primary btn-num" type="button">2</button>
+                        <button class="btn btn-primary btn-num" type="button">3</button>
+                        <button class="btn btn-primary btn-num" type="button">4</button>
+                        <button class="btn btn-primary btn-num active" type="button">5</button>
+                        <button class="btn btn-primary btn-num" type="button">6</button>
+                        <button class="btn btn-primary btn-num" type="button">7</button>
+                        <button class="btn btn-primary btn-num" type="button">8</button>
+                        <button class="btn btn-primary btn-num" type="button">9</button>
+                        <button class="btn btn-primary btn-num" type="button">10</button>
+                        <button class="btn btn-primary btn-num  dropdown-toggle"  data-toggle="dropdown" type="button">
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#">11-20</a></li>
+                            <li><a href="#">21-30</a></li>
+                            <li><a href="#">31-40</a></li>
+                        </ul>
+                        <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+            </div>
+	    </section>
+	</section>
+
+<!--底部 S-->
+	<footer>
+		<div class="navbar clearfix">
+			<div class="nav">
+				<li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+				<li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+				<li><a href="${ctx }/login">登录</a></li>
+				<li><a href="${ctx }/self_register">注册</a></li>
+				<li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+			</div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+		</div>
+	</footer>
+<!--底部 E-->
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.placeholder.1.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+<script type="text/javascript">
+    $.Placeholder.init();
+
+    $(function(){
+        $("#formAddTeacher").validate({
+            submitHandler: function(form){
+                var tempData = data;
+                //$.post("url",{}) //提交新增数据
+                tempData.unshift({// test
+                    id: "fdid934532324",
+                    teacher: {
+                        imgUrl: "./images/temp-face36.jpg",
+                        link: "http://www.baidu.com",
+                        name: "魏紫",
+                        mail: "weizi5@xdf.cn",
+                        org: "广州学校",
+                        department: "国外考试部"
+                    },
+                    time: "2013/02/14 10:01 AM"
+                })
+                loadListTeacherMentor(tempData);
+            }
+        });
+        /*老师列表模板函数*/
+        var listTeacherFn = doT.template(document.getElementById("listTeacherTemplate").text);
+
+        var data = [// ajax
+            {
+                id: "fdid902334",
+                teacher: {
+                    imgUrl: "./images/temp-face36.jpg",
+                    link: "http://www.baidu.com",
+                    name: "魏紫",
+                    mail: "weizi5@xdf.cn",
+                    org: "广州学校",
+                    department: "国外考试部"
+                },
+                mentor: {
+                    imgUrl: "./images/temp-face.jpg",
+                    link: "http://www.baidu.com",
+                    name: "杨义锋",
+                    mail: "yangyifeng@xdf.cn",
+                    org: "集团总公司",
+                    department: "知识管理中心"
+                },
+                time: "2013/02/14 10:01 AM"
+            },
+            {
+                id: "fdid934532324",
+                teacher: {
+                    imgUrl: "./images/temp-face36.jpg",
+                    link: "http://www.baidu.com",
+                    name: "魏紫",
+                    mail: "weizi5@xdf.cn",
+                    org: "广州学校",
+                    department: "国外考试部"
+                },
+                time: "2013/02/14 10:01 AM"
+            },
+            {
+                id: "fdid902334",
+                teacher: {
+                    imgUrl: "./images/temp-face36.jpg",
+                    link: "http://www.baidu.com",
+                    name: "魏紫",
+                    mail: "weizi5@xdf.cn",
+                    org: "广州学校",
+                    department: "国外考试部"
+                },
+                mentor: {
+                    imgUrl: "./images/temp-face.jpg",
+                    link: "http://www.baidu.com",
+                    name: "杨义锋",
+                    mail: "yangyifeng@xdf.cn",
+                    org: "集团总公司",
+                    department: "知识管理中心"
+                },
+                time: "2013/02/14 10:01 AM"
+            }
+        ]
+
+        loadListTeacherMentor(data);
+        /*加载老师列表函数*/
+        function loadListTeacherMentor(arrObj){
+            $("#listTeacher").html(listTeacherFn(arrObj));
+        }
+    });
+
+</script>
+</body>
+</html>

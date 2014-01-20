@@ -1,0 +1,675 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<link href="css/iAmMentor.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+
+    <!--老师介绍模板-->
+    <script id="teacherIntroTemplate" type="x-dot-template">
+        {{#def.media:it}}
+        {{##def.media:item:
+        <div class="media" >
+            <div class="pull-left">
+                <a href="{{!item.user.link || '#'}}" class="face" target="_blank">
+                    <img src="{{!item.user.imgUrl || './images/face-placeholder.png'}}" class="media-object img-polaroid" alt="头像"/>
+                </a>
+                <a href="#" class="send msg" ><i class="icon-msg"></i>发私信</a>
+                <a href="mailto:{{=item.user.mail}}" class="send" ><i class="icon-envelope"></i>发邮件</a>
+            </div>
+            <div class="media-body">
+                <div class="media-heading">
+                    <span class="name">{{=item.user.name}}</span>
+                    <span class="muted">{{=item.user.org}} {{=item.user.department}}</span>
+                                            <span class="muted right">
+                                                <i class="icon-tel"></i>{{=item.user.phone || ''}}
+                                                <i class="icon-envelope"></i>{{=item.user.mail}}
+                                            </span>
+                </div>
+                <dl>
+                    <dt>课程：</dt>
+                    <dd>{{=item.courseName}}</dd>
+                    <dt>导师：</dt>
+                    <dd>{{=item.mentor}}</dd>
+                    <dt>当前环节：</dt>
+                    <dd>{{=item.currLecture}}</dd>
+                </dl>
+            </div>
+        </div>
+        #}}
+    </script>
+
+    <!--成绩条模板-->
+    <script id="resultsBarTemplate" type="x-dot-template">
+        <div class="listTeacher section">
+            <div class="media-foot">
+                <div class="statebar">作业包总分 <strong>{{=it.fullScore}}</strong>  分<em>|</em>及格分 <strong>{{=it.scorePass}}</strong>  分<em>|</em>当前批改的总得分 <strong>{{=it.score}}</strong>  分</div>
+                <span class="isPass{{?it.status == 'pass'}} pass">通过{{??}}">未通过{{?}}</span>
+            </div>
+        </div>
+    </script>
+
+    <!--作业包详情模板-->
+    <script id="taskDetailTemplate" type="x-dot-template">
+        <div class="taskDetail section">
+            <div class="hd">
+                <h2>作业包 {{=it.num}} {{=it.name}} 共计 <span class="total">{{=it.taskCount}}</span>个作业，满分{{=it.fullScore}}分</h2>
+                <p class="muted">{{=it.intro}}</p>
+            </div>
+            <form action="{{=it.action || '#'}}" post="post" id="formTask">
+                <input name="taskId" id="taskId" value="{{=it.id}}" type="hidden" />
+                {{~it.listTask :task1:index2}}
+                {{~it.listTask :task}}
+                {{?index2 == task.index}}
+                <div class="bd" id="task{{=index2+1}}">
+                    <div class="pd20">
+                        <div>{{=index2+1}}. {{=task.name}}（{{=task.totalScore}}分）</div>
+                        <div class="intro">{{=task.stem}}</div>
+                        <ul class="attachList unstyled">
+                            {{~task.listAttachment :att1:index1}}
+                            {{~task.listAttachment :att}}
+                            {{?index1 == att.index}}
+                            <li><a href="{{=att.url}}"><i class="icon-paperClip"></i>{{=att.name}}</a></li>
+                            {{?}}
+                            {{~}}
+                            {{~}}
+                        </ul>
+                    </div>
+                    <div class="dashed-t1 taskAnswer pd20">
+                        <label>作业</label>
+                        {{?task.status == "null"}}
+                            <span class="muted">未作答</span>
+                        {{??}}
+                            {{?task.type == 'uploadWork'}}
+                            <ul class="attachList unstyled" >
+                                {{~task.listTaskAttachment :att2}}
+                                <li id="attach{{=att2.id}}">
+                                    <span><i class="icon-paperClip"></i><span class="name">{{=att2.name}}</span></span>
+                                    <div class="pos-r">
+                                        {{?att2.type != "rar"}}
+                                        <a class="read" href="{{=att2.mediaUrl}}"><i class="icon-eye blue"></i>在线阅读</a>
+                                        <em>|</em>
+                                        {{?}}
+                                        <a href="{{=att2.fileUrl}}" target="_blank" class="download"><i class="icon-downloadbox blue"></i>下载</a>
+                                    </div>
+                                </li>
+                                {{~}}
+                            </ul>
+                            {{??task.type == 'onlineAnswer'}}
+                                {{=task.answer || ''}}
+                            {{?}}
+                        {{?}}
+                    </div>
+                    <div class="dashed-t1 pd20 ratingBox" id="{{=task.id}}">
+                        {{?task.status == "unchecked"}}
+                            <label >作业打分</label>
+                            <div class="box-score">
+                                {{#def.timeLine:task.totalScore}}
+                                <input type="hidden" value="0" min="1" name="taskScore" />
+                            </div>
+                            <label >说点什么</label>
+                            {{#def.richText}}
+                            <div class="clearfix">
+                                <button class="btn btn-primary btn-large pull-right" type="button">此题批改确认</button>
+                            </div>
+                        {{??}}
+                            <label >作业打分</label>
+                            <div class="box-score">
+                                <div class="text-info"><span class="num">{{?task.status == "null"}}0{{??}}{{=task.rating.score}}{{?}}</span>分</div>
+                            </div>
+                            <label >说点什么</label>
+                            <div class="box-comm">
+                                {{?task.status == "null"}}
+                                    <span class="muted">无话可说，此题未作答！</span>
+                                {{??}}
+                                    {{?task.rating.comment}}
+                                    <div class="comment">{{=task.rating.comment}}</div>
+                                    <div class="time"><i class="icon-time"></i>{{=task.rating.time}}</div>
+                                    {{??}}
+                                        <span class="muted">无评语...</span>
+                                    {{?}}
+                                {{?}}
+                            </div>
+                            {{?it.status == "unfinish" && task.status != "null"}}
+                            <div class="clearfix">
+                                <button class="btn btn-primary btn-large pull-right" type="button">修改批改意见</button>
+                            </div>
+                            {{?}}
+                        {{?}}
+                    </div>
+                </div>
+                {{?}}
+                {{~}}
+                {{~}}
+                {{?it.status == "unfinish"}}
+                    <div class="ft">
+                        <div class="scoreBar">
+                            作业包总分 <strong>{{=it.fullScore}}</strong>  分<em>|</em>及格分 <strong>{{=it.scorePass}}</strong>  分<em>|</em>当前批改的总得分 <strong id="nowScore">{{=it.score}}</strong>  分
+                        </div>
+                        <button class="btn btn-primary btn-large" type="submit">提交全部批改</button>
+                    </div>
+                {{?}}
+            </form>
+
+        </div>
+        {{##def.timeLine:total:
+        <div class="timeLine">
+            <div class="num">0</div>
+            {{ for(var i=1; i <= total; i++){ }}
+            <a title="{{=i*it.timeLine.span}}{{=it.timeLine.unit || ''}}" href="#" style="width: {{=(it.timeLine.width-total-1)/total}}px"
+               class="{{?i*it.timeLine.span==it.timeLine.span}}first {{?}}{{?it.timeLine.curPos && i*it.timeLine.span<=it.timeLine.curPos}}active{{?}}"><span class="num">{{=i*it.timeLine.span}}</span></a>
+            {{ } }}
+        </div>
+        #}}
+    </script>
+
+    <!-- 富文本输入框 模板-->
+    <script id="richTextTemplate" type="x-dot-template">
+        <div class="boxRichText">
+            <textarea rows="3" class="input-block-level" name="comment" >{{=it.comm || ''}}</textarea>
+        </div>
+    </script>
+
+    <!-- 导师评语 模板-->
+    <script id="boxCommentTemplate" type="x-dot-template">
+        <div class="box-comm">
+            {{?it.comment}}
+                <div class="comment">{{=it.comment}}</div>
+                <div class="time"><i class="icon-time"></i>{{=it.time}}</div>
+            {{??}}
+                <span class="muted">无评语...</span>
+            {{?}}
+        </div>
+    </script>
+
+    <!-- 导师评语 模板-->
+    <script id="mediaPlayerTemplate" type="x-dot-template">
+        <div class="md-media" id="mediaPlayer">
+            <div class="bd2">
+                <div id="flashcontent"></div>
+            </div>
+            <div class="ft2 clearfix">
+                <div class="pull-left">
+                    当前附件：<span class="name"><i class="icon-paperClip"></i>{{=it.name}}</span>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-primary btn-large" type="button">关闭浏览</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!--批改题卡模板-->
+    <script id="taskNumListTemplate" type="x-dot-template">
+        <div class="section nav-task">
+            <div class="hd">
+                批改题卡
+            </div>
+            <div class="bd" id="navTask">
+                {{~it :task1:index1}}
+                {{~it :task}}
+                {{?index1 == task.index}}
+                <a class="num{{?task.status == 'checked'}} active" title="已批改"{{??task.status == 'unchecked'}}" title="未批改"{{??task.status == 'null'}} active" title="未作答"{{?}} href="#task{{=index1+1}}">
+                {{=index1+1}}
+                </a>
+                {{?}}
+                {{~}}
+                {{~}}
+            </div>
+        </div>
+    </script>
+
+
+    <script src="js/doT.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<!--头部 S-->
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav">
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"></a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+<!--头部 E-->
+
+<!--主体 S-->
+<section class="container">	
+		<div class="clearfix mt20">
+	        <div class="pull-left w760">
+                <div class="page-header">
+                    <a href="./我是导师-批改作业首页.html">返回批改作业首页</a>
+                    <div class="pos-r">
+                        <button class="btn btn-primary btn-large" id="downloadBox" type="button">打包下载</button>
+                    </div>
+                </div>
+                <div class="page-body">
+                    <section class="listTeacher" id="teacherIntro">
+                    </section>
+                    <section id="taskDetail">
+
+                    </section>
+                </div>
+			</div>
+			<div class="pull-right w225">
+                <div class="section">
+                    <div class="profile">
+                        <a href="#"><img src="./images/face-placeholder.png" class="face" alt="头像"/></a>
+                        <h5>杨义锋 <i class="icon-male"></i></h5> <!-- 女人用.icon-female -->
+                        <p class="muted">
+                            集团总公司 知识管理中心 <br/>
+                            最近登录    3 天前<br/>
+                            在线统计    35 天
+                        </p>
+                    </div>
+                </div>
+                <div id="affixRight" class="mt20" data-spy="affix" data-offset-top="384">
+                </div>
+	        </div>
+        </div>
+
+<!--底部 S-->
+	<footer>
+		<div class="navbar clearfix">
+			<div class="nav">
+				<li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+				<li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+				<li><a href="${ctx }/login">登录</a></li>
+				<li><a href="${ctx }/self_register">注册</a></li>
+				<li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+			</div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+		</div>
+	</footer>
+<!--底部 E-->
+</section>
+<!--主体 E-->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /*作业包介绍模板函数*/
+        var teacherIntroFn = doT.template(document.getElementById("teacherIntroTemplate").text);
+
+       var teacherIntroData = {// ajax
+                id: "fdid903243324",
+                user: {
+                    name: "杨义锋",
+                    imgUrl: "./images/temp-face70.jpg",
+                    org: "集团总公司",
+                    department: "知识管理中心",
+                    phone: "135 8165 1017",
+                    mail: "username@xdf.cn ",
+                    link: "#profile"
+                },
+                courseName: "集团英联邦项目雅思强化口语备课课程 ",
+                mentor: "覃晔",
+                currLecture: "第二关 学术准备 2.2 提交学术作业",
+            };
+        $("#teacherIntro").html(teacherIntroFn(teacherIntroData));
+        var taskDetailFn = doT.template(document.getElementById("taskDetailTemplate").text,undefined,{
+            richText: document.getElementById("richTextTemplate").text
+        });
+        var richTextFn = doT.template(document.getElementById("richTextTemplate").text);
+        var boxCommentFn = doT.template(document.getElementById("boxCommentTemplate").text);
+        var taskNumListFn = doT.template(document.getElementById("taskNumListTemplate").text);
+        var resultsBarFn = doT.template(document.getElementById("resultsBarTemplate").text);
+        var mediaPlayerFn = doT.template(document.getElementById("mediaPlayerTemplate").text);
+
+        var $window = $(window);
+        var taskData = {//ajax
+            id: "fdid08582300324",
+            num: 2,
+            name: "雅思口语强化课程教案解读",
+            fullScore: 21,
+            scorePass: 15,
+            score: 5,
+            taskCount: 4,
+            intro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+            status: "unfinish",//unfinish, pass, fail
+            listTask: [
+                {
+                    id: "fdid00000000322",
+                    index: 0,
+                    status: "checked",//checked, unchecked, null
+                    type: "uploadWork",//uploadWork, onlineAnswer
+                    totalScore: 5,
+                    rating: {
+                        score: 5,
+                        time:"15分钟前",
+                        comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。"
+                    },
+                    name: "LA1-雅思听力评分细则",
+                    stem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                    listTaskAttachment: [
+                        {
+                            id: "fdid24123212",
+                            type: "video",
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.mp4",
+                            mediaUrl: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7",
+                            fileUrl: "./images/temp-face.jpg"
+                        },
+                        {
+                            id: "fdid0000023212",
+                            type: "video",
+                            name: "新东方核心价值观.mp4",
+                            mediaUrl: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau",
+                            fileUrl: "./images/temp-face.jpg"
+                        },
+                        {
+                            id: "fdid0000023212",
+                            type: "rar",
+                            name: "高新技术产业各领域咨询报告.rar",
+                            fileUrl: "./images/temp-face.jpg"
+                        },
+                        {
+                            id: "fdid0000023212",
+                            type: "video",
+                            name: "新东方的战略.mp4",
+                            mediaUrl: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc",
+                            fileUrl: "./images/temp-face.jpg"
+                        }
+                    ],
+                    listAttachment: [
+                        {
+                            index: 0,
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                            url: "#"
+                        },
+                        {
+                            index: 3,
+                            name: "高新技术产业各领域咨询报告.pdf",
+                            url: "#"
+                        },
+                        {
+                            index: 2,
+                            name: "高新技术产业各领域专家分析讲座.mp4",
+                            url: "#"
+                        }
+                    ]
+                },
+                {
+                    id: "fdid0000777",
+                    index: 2,
+                    status: "unchecked",//checked, unchecked, null
+                    type: "uploadWork",//uploadWork, onlineAnswer
+                    totalScore: 6,
+                    rating: null,
+                    name: "LA1-雅思听力评分细则3",
+                    stem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                    listTaskAttachment: [
+                        {
+                            id: "fdid24123212",
+                            type: "video",
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.mp4",
+                            mediaUrl: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7",
+                            fileUrl: "./images/temp-face.jpg"
+                        },
+                        {
+                            id: "fdid0000023212",
+                            type: "video",
+                            name: "新东方核心价值观.mp4",
+                            mediaUrl: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau",
+                            fileUrl: "./images/temp-face.jpg"
+                        },
+                        {
+                            id: "fdid0000023212",
+                            type: "rar",
+                            name: "高新技术产业各领域咨询报告.rar",
+                            fileUrl: "./images/temp-face.jpg"
+                        }
+                    ],
+                    listAttachment: [
+                        {
+                            index: 0,
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                            url: "#"
+                        },
+                        {
+                            index: 3,
+                            name: "高新技术产业各领域咨询报告.pdf",
+                            url: "#"
+                        },
+                        {
+                            index: 2,
+                            name: "高新技术产业各领域专家分析讲座.mp4",
+                            url: "#"
+                        }
+                    ]
+                },
+                {
+                    id: "fdid000099933",
+                    index: 1,
+                    status: "unchecked",//checked, unchecked, null
+                    type: "onlineAnswer",//uploadWork, onlineAnswer
+                    totalScore: 5,
+                    rating: null,
+                    name: "LA1-雅思听力评分细则3",
+                    stem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                    answer: "这里是答案这里是答案这里是答案这里是答案这里是答案",
+                    listAttachment: [
+                        {
+                            index: 0,
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                            url: "#"
+                        },
+                        {
+                            index: 3,
+                            name: "高新技术产业各领域咨询报告.pdf",
+                            url: "#"
+                        },
+                        {
+                            index: 2,
+                            name: "高新技术产业各领域专家分析讲座.mp4",
+                            url: "#"
+                        }
+                    ]
+                },
+                {
+                    id: "fdid0000354359933",
+                    index: 3,
+                    status: "null",//checked, unchecked, null
+                    type: "onlineAnswer",//uploadWork, onlineAnswer
+                    totalScore: 5,
+                    rating: null,
+                    name: "LA1-雅思听力评分细则3",
+                    stem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                    listAttachment: [
+                        {
+                            index: 0,
+                            name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                            url: "#"
+                        },
+                        {
+                            index: 3,
+                            name: "高新技术产业各领域咨询报告.pdf",
+                            url: "#"
+                        },
+                        {
+                            index: 2,
+                            name: "高新技术产业各领域专家分析讲座.mp4",
+                            url: "#"
+                        }
+                    ]
+                }
+            ]
+        };
+        loadTaskDetail();
+        function loadTaskDetail(){
+            //$.getJSON("url",).success(function(res){
+            // taskData = res;
+            // });
+            taskData.timeLine = {//时间轴控件 配置数据
+                width: 678, //时间轴控件 宽度
+                curPos: 0, //当前位置
+                span: 1, //每格的进制
+                unit: "分"
+            }
+            $("#taskDetail").html(taskDetailFn(taskData))
+                    .find(".timeLine>a")
+                    .click(function(e){
+                        e.preventDefault();
+                        $(this).prevAll("a").add(this).addClass("active");
+                        $(this).nextAll("a").removeClass("active");
+                        $(this).parent().next(":hidden").val( $(this).children(".num").text());
+                    }).tooltip();
+            if(taskData.status != "unfinish"){
+                var results = resultsBarFn(taskData);
+                $("#taskDetail").append(results).prepend(results);
+            }
+            $("#affixRight").html(taskNumListFn(taskData.listTask));
+
+
+
+            //作业列表序号控制
+            $("#navTask>.num").click(function(e){
+                e.preventDefault();
+                var $this = $(this);
+                var id = $this.attr("href");
+                $window.scrollTop($(id).offset().top - 60);
+            })
+                    .tooltip({
+                        placement: "top"
+                    });
+            var $form = $("#formTask");
+            var validator = $form.validate({
+                rules: {
+                    taskScore: {
+                        min: 1
+                    }
+                },
+                messages: {
+                    taskScore: {
+                        min: "请为此题打分"
+                    }
+                },
+                ignore: "",
+                submitHandler: function(form){
+                    taskData.status = taskData.score < taskData.scorePass ? "fail" : "pass";
+                    //$.post()
+                    $window.scrollTop($("#taskDetail").offset().top - 60);
+                    loadTaskDetail();
+                }
+            });
+            $form.find(".bd .ratingBox .btn-primary")
+                    .click(function(e){
+                        var $boxComm = $(this).parent().prev();
+                        var $boxScore = $boxComm.prevAll(".box-score");
+                        if($boxComm.hasClass("boxRichText")){
+                            var txt = $boxComm.children("textarea").val();
+                            var score = parseInt($boxScore.find(".text-info>.num").text());
+                            if($boxScore.find(".timeLine").length){
+                                score = parseInt($boxScore.children("[name='taskScore']").val());
+                                if(validator.element($boxScore.children("[name='taskScore']"))){
+                                    $boxScore.html('<div class="text-info"><span class="num">' + score + '</span>分</div>');
+                                    taskData.score += score;
+                                    var fdid = $boxScore.parent(".ratingBox").attr("id");
+                                    for(var i=0 in taskData.listTask){// for test
+                                        if(taskData.listTask[i].id == fdid){
+                                            taskData.listTask[i].rating = {
+                                                score: score,
+                                                comment: txt,
+                                                time: "一分钟前"
+                                            }
+                                            taskData.listTask[i].status = "checked";
+                                        }
+                                    }
+                                    //$.post("url",{id: fdid, score: taskData.score, comment: txt});
+                                    $("#nowScore").text(taskData.score);
+                                }
+                            }
+                            if(score){
+                                $boxComm.after(boxCommentFn({
+                                    comment: txt,
+                                    time: "刚刚"
+                                })).remove();
+                                $(this).text("修改批改意见");
+                            }
+                        } else if($boxComm.hasClass("box-comm")) {
+                            $boxComm.after(richTextFn({comm: $boxComm.children(".comment").text()})).remove();
+                        }
+
+
+                    });
+            $form.find(".taskAnswer>.attachList>li").each(function(){
+                var $this = $(this);
+                var $list = $this.parent();
+                $this.find(".pos-r>.read").click(function(e){
+                    e.preventDefault();
+                    loadVideo($(this),$list);
+                })
+            });
+        }
+        /**************************  如下代码把 videoplayer.swf 嵌入到 id 为 flashcontent 的div中  *********************/
+        var flashvars =
+        {
+            //flash接收的参数
+            autoPlay:'true',
+            skin:"http://me.xdf.cn:80/iportal/sys/attachment/video/videoPlayerSkin.swf",
+            video: "",
+            fms:"rtmp://video.xdf.cn/V3/"
+        };
+        var params =
+        {
+            allowScriptAccess: "always",
+            allowFullScreen:"true",
+            wmode:"transparent",
+            quality:"high"
+        };
+        var attributes =
+        {
+            id: "flashcontent"
+        };
+
+        function loadVideo($ele,$list){
+            flashvars.video = $ele.attr("href");
+            $("head").loadJS({name: "SWFobject.js"});
+
+            if($("#mediaPlayer").length){
+                $("#mediaPlayer").remove();
+            }
+            $list.before(mediaPlayerFn({name: $ele.parent().prev().children(".name").text()}));
+            swfobject.embedSWF("http://me.xdf.cn:80/iportal/sys/attachment/video/videoplayer.swf", "flashcontent",
+                    "100%", "510", "6.0.0", "expressInstall.swf", flashvars, params, attributes);
+            var $player = $("#mediaPlayer");
+            $window.scrollTop($player.parent().offset().top - 60);
+            $player.find(".ft2 .btn-primary").click(function(){
+                $player.remove();
+            })
+        }
+
+
+    });
+</script>
+</body>
+</html>

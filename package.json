@@ -1,0 +1,10 @@
+{
+  "name": "ntp",
+  "version": "0.0.1",
+  "author": "Chanh Wang",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.3.0"
+  }
+}

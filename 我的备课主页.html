@@ -1,0 +1,756 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="theme-profile/default/css/global.css" rel="stylesheet" type="text/css">
+<link href="theme-profile/default/css/home-course.css" rel="stylesheet" type="text/css">
+<link href="theme-profile/default/css/webimOfSide.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
+    <!--心情相关模板-->
+    <script id="moodTemplate" type="text/x-dot-template">
+        {{?it.list}}
+            {{~it.list :item}}
+                {{#def.dayMood:item}}
+            {{~}}
+        {{??}}
+            {{#def.item:it.item}}
+        {{?}}
+        {{##def.dayMood:param:
+            <dt>
+            <div class="timeBox">
+                <span class="date">{{=param.date}}</span>
+                <b class="caret"></b>
+            </div>
+            <i class="icon-disc-blue"></i>
+            </dt>
+            <dd>
+                {{~param.items :item}}
+                    {{#def.item:item}}
+                {{~}}
+            </dd>
+        #}}
+        {{##def.item:param:
+            <div class="item" data-fdid="{{=param.id}}">
+                <div class="mood">{{=param.mood}}</div>
+                <div class="toolbar clearfix">
+                    <div class="pull-left">
+                        <div class="time"><i class="icon-time"></i>{{=param.time}}</div>
+                    </div>
+
+                    <div class="pull-right">
+                        <div class="btn-ctrl">
+                            <a href="#" class="praise{{?param.praise.did}} active{{?}}" title="{{?param.praise.did}}您已赞过{{??}}点击赞{{?}}"><i class="icon-thumbs-up"></i><span class="num">{{=param.praise.count}}</span></a>
+                            <a href="#" class="weak{{?param.weak.did}} active{{?}}" title="{{?param.weak.did}}您已踩过{{??}}点击踩{{?}}"><i class="icon-thumbs-down"></i><span class="num">{{=param.weak.count}}</span></a>
+                            <a href="#" class="comment" title="点击评论"><i class="icon-dialog"></i><span class="num">{{=param.comment.count}}</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="commentBox{{=param.id}}" class="commentBox collapse in">
+                    {{?param.comment.list}}
+                        <div class="collapse-inner">
+                            <a href="#commentBox{{=param.id}}" class="comment-toggle" data-toggle="collapse" title="点击收起评论">
+                                <b class="caret"></b>
+                                <span class="txt">收起评论</span>
+                            </a>
+                            {{~param.comment.list :item}}
+                                {{#def.moodComment}}
+                            {{~}}
+                        </div>
+                    {{?}}
+                </div>
+            </div>
+        #}}
+    </script>
+
+    <!--评论心情表单模板-->
+    <script id="formCommentTemplate" type="x-dot-template">
+        <div class="formBox">
+                <form action="#">
+                    <textarea class="input-block-level" name="comment" rows="2" required></textarea>
+                    <div class="formActions">
+                        <button class="btn btn-primary" type="submit">评论</button>
+                        <button class="btn btn-cancel" type="button">取消</button>
+                    </div>
+                </form>
+        </div>
+    </script>
+
+    <!--心情的评论模板-->
+    <script id="moodCommentTemplate" type="x-dot-template">
+        {{ if(!item)var item=it; }}
+        <div class="item2 media" >
+            <a class="pull-left" href="{{!item.issuer.link}}"><img class="media-object" src="{{!item.issuer.imgUrl}}" alt=""/></a>
+            <div class="media-body">
+                <div class="media-heading">
+                    {{=item.issuer.name}}({{=item.issuer.mail}}) &nbsp;&nbsp;来自 {{=item.issuer.org}}
+                    <span class="time"><i class="icon-time"></i>{{=item.time}}</span>
+                </div>
+                <p>{{=item.comment}}</p>
+
+            </div>
+        </div>
+    </script>
+
+    <!-- 侧边栏 头像列表模块  -->
+    <script id="sideListFaceTemplate" type="x-dot-template">
+        <!-- 侧边栏 头像列表模块 S -->
+        <div class="side_listFace_md" id="sideListFace">
+            <div class="side_listFace_wrap">
+                <ul class="side_listFace">
+                    {{~it.listLearner :item}}
+                    <li><a href="#{{=item.id}}" title="{{=item.name}}">
+                        <img src="{{=item.imgUrl || './images/default-face-45.png'}}" alt="{{=item.name}}"/>
+                    </a></li>
+                    {{~}}
+                </ul>
+                <a href="#" class="prev hide"><b class="caret"></b></a>
+                <a href="#" class="next hide"><b class="caret"></b></a>
+            </div>
+            <div class="side_support">
+                <h5>支持团队</h5>
+                <ul class="side_support_list">
+                    <li{{?!it.mentor}} class="disabled"{{?}}>
+                    <a href="#{{=it.mentor ? it.mentor.id : ''}}" title="{{=it.mentor ? it.mentor.name : ''}}">
+                        <i class="icon-face-mentor"></i>
+                    </a>
+                    <h6>导师</h6>
+                    </li>
+                    <li>
+                        <a href="#{{=it.author.id}}" title="{{=it.author.name}}">
+                            <i class="icon-face-author"></i>
+                        </a>
+                        <h6>创作者</h6>
+                    </li>
+                    <li>
+                        <a href="#{{=it.admin.id}}" title="{{=it.admin.name}}">
+                            <i class="icon-face-admin"></i>
+                        </a>
+                        <h6>平台运营</h6>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 侧边栏 头像列表模块 D -->
+    </script>
+
+    <!-- 侧边栏 聊天窗口模板  -->
+    <script id="chatDialogTemplate" type="x-dot-template">
+        <!--聊天窗口 start-->
+        <div id="side_webim" class="side_webim fade in" data-toggle="alert">
+            <a class="close" href="#" data-dismiss="alert">&times;</a>
+            <div class="side_webim_hd">
+                <img src="{{!it.user.imgUrl || './images/default-face-45.png'}}" alt="" class="img-polaroid face" />
+                <span class="name">{{=it.user.name}}</span>
+                <span class="org" title="{{=it.user.org}} {{=it.user.department}}">{{=it.user.org.length>8?it.user.org.substr(0,8)+'...':it.user.org}} {{=it.user.department.length>8?it.user.department.substr(0,8)+'...':it.user.department}}</span>
+            </div>
+            <div class="side_webim_bd">
+                <div class="side_webim_row">
+                    <span>TA的电话</span>
+                    <span  class="tel">
+                        <i class="icon-tel"></i>
+                        {{=it.user.tel}}
+                    </span>
+                </div>
+                <div class="side_webim_chatLog">
+                    <div class="webim_chat_list" id="listChatLog">
+                    </div>
+                </div>
+                <a class="webim_chatLog_link" href="私信-与某人的对话.html?{{=it.user.id}}">聊天纪录</a>
+            </div>
+            <div class="side_webim_ft">
+                <form action="#" id="formWebim" class="formWebim">
+                    <input type="hidden" id="userId" name="userId" value="{{=it.user.id}}"/>
+                    <textarea name="webim_input" id="webim_input" class="webim_input"  placeholder="200字" required maxlength="200" rows="2"></textarea>
+                    <div class="formWebimActs">
+                        <i class="icon-envelope"></i>
+                        <a href="mailto:{{=it.user.mail}}" class="mailTo">给TA发邮件</a>
+                        <button class="btn btn-primary" type="submit">发送</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--聊天窗口 end-->
+    </script>
+
+    <!-- 聊天纪录列表 模板 -->
+    <script id="listChatLogTemplate" type="text/x-dot-template">
+        {{~it :item}}
+        <div class="webim_chat_item">
+            <div class="webim_chat_item_hd">
+                <span class="webim_date">{{=item.date}}</span>
+            </div>
+            <div class="webim_chat_item_bd">
+                {{~item.list :dia}}
+                <div class="webim_dia_box {{?dia.isMe}}webim_dia_r{{??}}webim_dia_l{{?}}">
+                    <div class="webim_date">{{=dia.time}}</div>
+                    <div class="webim_dia_bg">
+                        <div class="dia_caret"><b></b></div>
+                        <div class="webim_dia_cont">
+                            {{=dia.msg}}
+                        </div>
+                    </div>
+                </div>
+                {{~}}
+            </div>
+        </div>
+        {{~}}
+    </script>
+    <script src="js/doT.min.js"></script>
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a href="#" class="logo"></a>
+            <ul class="nav" id="topNav">
+                <li class="itemBg"></li>
+                <li class="specific"><a href="#">全部课程</a></li>
+                <li><a href="#">系统管理</a></li>
+                <li><a href="#">我是导师</a></li>
+                <li class="active"><a href="#">我是主管</a></li>
+            </ul>
+
+            <ul class="nav pull-right">
+                <li>
+                    <a class="btn-publish" href="#">
+                        <i class="icon-book-pencil"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                        <span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                        <span class="name">杨义锋</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                        <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                        <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                        <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                        <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="btn-off"><span class="divider">|</span>退出</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="container">
+	<section class="mt20 section">
+        <div class="clearfix row1">
+            <div class="pull-left media profile">
+                <div class="pull-left"><img src="./images/temp-face70.jpg" class="media-object" alt=""/></div>
+                <div class="media-body">
+                    <div class="media-heading">
+                        杨义锋 <i class="icon-female"></i>
+                        <a class="icon-circle-bg" href="#"><i class="icon-pencil-mini"></i></a>
+                        <a class="icon-circle-bg" href="#"><i class="icon-cloth"></i></a>
+                    </div>
+                    <p class="muted">
+                        机构  集团总公司 <br/>
+                        部门  知识管理中心<br/>
+                        电话  135-8165-1017<br/>
+                        年龄  27<br/>
+                        星座  射手座<br/>
+                        血型  A
+                    </p>
+                </div>
+            </div>
+            <div class="pull-right box1">
+                <div class="mainCourse">
+                    <img class="cover" src="images/default-cover.png" alt="">
+                    <a href="##" class="courseLink">
+                        <h1>集团雅思基础口语新教师备课课程</h1>
+                        <p class="sub">集团国外考试推广管理中心</p>
+                    </a>
+                    <a class="myAll" href="#">我的全部课程</a>
+                </div>
+                <div class="well">
+                    <i class="icon-shyhl"></i>
+                    <span class="txt">这家伙很懒，也不好好介绍一下自己~ :-(</span>
+                    <i class="icon-shyhr"></i>
+                </div>
+            </div>
+        </div>
+	</section>
+
+    <section class="mt20 clearfix">
+        <div class="pull-left section">
+            <div class="course-progress">
+                <div class="progress">
+                    <div class="bar" style="width: 20%;"></div>
+                </div>
+                <div class="statusBar">
+                    我共完成 1 个<span class="text-info">备课环节</span>，下一节：1.2 <span class="text-info">学习入门文档</span>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right section">
+            <div class="box-nextBtn">
+                <a class="icon-circle-lg-bg" href="#"><i class="icon-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt20 clearfix">
+        <section class="pull-left w760">
+            <div class="section box-pd20">
+                <form id="formAddMood" action="##">
+                    <textarea name="field-mood" required id="field-mood" class="input-block-level textarea"  rows="3"></textarea>
+                    <div class="clearfix">
+                        <button type="submit" class="btn btn-primary pull-right">写备课心情</button>
+                    </div>
+                </form>
+                    <dl class="list-mood" id="listMood">
+                    </dl>
+            </div>
+        </section>
+        <section class="pull-right w225">
+            <div class="section statistical">
+                <div class="hd">
+                    <h5>活跃指数</h5>
+                </div>
+                <div class="bd">
+                    <dl class="dl-horizontal">
+                        <dt>最近登录</dt>
+                        <dd class="text-info">3天前</dd>
+                        <dt>在线统计</dt>
+                        <dd class="text-info">35天</dd>
+                        <dt>备课进度</dt>
+                        <dd class="text-info">72%</dd>
+                        <dt>心路历程</dt>
+                        <dd class="text-info">19条记录</dd>
+                        <dt>最终成绩</dt>
+                        <dd class="text-info">87分</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="section mt20 list-face">
+                <div class="hd">
+                    <h5>最近访客</h5>
+                </div>
+                <div class="bd">
+                    <ul class="thumbnails">
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                        <li><a href="#" class="thumbnail"><img src="images/temp-face36.jpg" alt=""></a>
+                            <h6>韩梅梅</h6>
+                        </li>
+                    </ul>
+                    <div class="page-group clearfix">
+                        <a href="#" class="btn-prev">上一页</a>
+                        <a href="#" class="btn-next">下一页</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section newClass mt20">
+                <div class="hd">
+                    <h5>我的课程</h5>
+                    <a href="#" class="ab_r">全部</a>
+                </div>
+                <div class="bd">
+                    <div class="list-class">
+                        <a href="#">
+                            <img src="images/default-cover.png" alt="">
+                            <span class="mask"></span>
+                    			<span class="caption">
+                                	<h6>集团雅思基础口语新教师</h6>
+                                    <span class="text-warning">集团国外考试推广管理中心</span>
+                                </span>
+                        </a>
+                        <a href="#">
+                            <img src="images/default-cover.png" alt="">
+                            <span class="mask"></span>
+                    			<span class="caption">
+                                	<h6>集团雅思基础口语新教师</h6>
+                                    <span class="text-warning">集团国外考试推广管理中心</span>
+                                </span>
+                        </a>
+                        <a href="#">
+                            <img src="images/default-cover.png" alt="">
+                            <span class="mask"></span>
+                    			<span class="caption">
+                                	<h6>集团雅思基础口语新教师</h6>
+                                    <span class="text-warning">集团国外考试推广管理中心</span>
+                                </span>
+                        </a>
+                        <a href="#">
+                            <img src="images/default-cover.png" alt="">
+                            <span class="mask"></span>
+                    			<span class="caption">
+                                	<h6>集团雅思基础口语新教师</h6>
+                                    <span class="text-warning">集团国外考试推广管理中心</span>
+                                </span>
+                        </a>
+                        <a href="#">
+                            <img src="images/default-cover.png" alt="">
+                            <span class="mask"></span>
+                    			<span class="caption">
+                                	<h6>集团雅思基础口语新教师</h6>
+                                    <span class="text-warning">集团国外考试推广管理中心</span>
+                                </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+<!--底部 S-->
+	<footer>
+		<div class="navbar clearfix">
+			<div class="nav">
+				<li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+				<li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+				<li><a href="${ctx }/login">登录</a></li>
+				<li><a href="${ctx }/self_register">注册</a></li>
+				<li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+			</div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+		</div>
+	</footer>
+<!--底部 E-->
+
+
+
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.placeholder.1.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+<script type="text/javascript" src="js/webimOfSide.js"></script>
+<script type="text/javascript">
+$(function(){
+	var moodFn = doT.template(document.getElementById("moodTemplate").text,undefined,{
+        moodComment: document.getElementById("moodCommentTemplate").text
+    });
+    var formCommentFn = doT.template(document.getElementById("formCommentTemplate").text);
+    var moodCommentFn = doT.template(document.getElementById("moodCommentTemplate").text);
+
+    var moodData = {
+        list:[]
+    };
+    moodData.list = [//ajax
+        {
+            date: "12 03 2013",
+            items: [
+                {
+                    id: "fdid2340234",
+                    mood: "我通关啦！新东方教师认证证书在 这里。",
+                    time: "昨天",
+                    praise: {
+                        count: 23,
+                        did: false
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 2,
+                        list: [
+                            {
+                                issuer: {
+                                    imgUrl: "./images/temp-face70.jpg",
+                                    link: "#",
+                                    name: "李四",
+                                    mail: "lisi2@xdf.cn",
+                                    org: "广州学校"
+                                },
+                                comment: "为什么这样子~~",
+                                time: "5小时前"
+                            },
+                            {
+                                issuer: {
+                                    imgUrl: "./images/temp-face70.jpg",
+                                    link: "#",
+                                    name: "李四",
+                                    mail: "lisi2@xdf.cn",
+                                    org: "广州学校"
+                                },
+                                comment: "你拉着我 说你有些犹豫~~",
+                                time: "8小时前"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            date: "12 01 2013",
+            items: [
+                {
+                    id: "fdid23402224",
+                    mood: "我完成 第一关“在线学习” 1.1 节 “学习入门视频” 第 3 个视频“陈向东对新教师寄语”啦~",
+                    time: "三天前",
+                    praise: {
+                        count: 23,
+                        did: true
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 0
+                    }
+                }
+            ]
+        },
+        {
+            date: "11 30 2013",
+            items: [
+                {
+                    id: "fdid2000111234",
+                    mood: "我通关啦！新东方教师认证证书在 这里。",
+                    time: "四天前",
+                    praise: {
+                        count: 23,
+                        did: true
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 0
+                    }
+                },
+                {
+                    id: "fdid4444444444444",
+                    mood: "我通关啦！新东方教师认证证书在 这里。",
+                    time: "四天前",
+                    praise: {
+                        count: 23,
+                        did: false
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 0
+                    }
+                },
+                {
+                    id: "fdid2111111111111114",
+                    mood: "我通关啦！新东方教师认证证书在 这里。",
+                    time: "四天前",
+                    praise: {
+                        count: 23,
+                        did: false
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 0
+                    }
+                },
+                {
+                    id: "fdid2000000000000000",
+                    mood: "我通关啦！新东方教师认证证书在 这里。",
+                    time: "四天前",
+                    praise: {
+                        count: 23,
+                        did: false
+                    },
+                    weak: {
+                        count: 5,
+                        did: false
+                    },
+                    comment: {
+                        count: 0
+                    }
+                }
+            ]
+        }
+    ];
+    //console.log(moodFn(moodData));
+    $("#listMood").html(moodFn(moodData));
+
+    $("#listMood").delegate("dd .btn-ctrl>a","click",function(e){
+        e.preventDefault();
+        var $this = $(this);
+        if(!$this.hasClass("active")){
+            var tips = "";
+            if($this.hasClass("comment")){
+                tips = "点击评论";
+                var $form = $(formCommentFn());
+                $this.closest(".toolbar").after($form);
+                $form.find("form").validate({
+                    submitHandler: function(){
+                        /*评论心情*/
+                        //$.post("url",{id: $this.closest(".item").attr("data-fdid")});
+
+                        var $inner = $('<div class="collapse-inner"></div>');
+                        var $num = $this.children(".num");
+                        if($form.next(".commentBox").children(".collapse-inner").length){
+                            $inner = $form.next(".commentBox").children(".collapse-inner");
+                        } else {
+                            $form.next(".commentBox").append($inner);
+                        }
+                        $inner.prepend(moodCommentFn({
+                            issuer: {
+                                imgUrl: "./images/temp-face.jpg",
+                                link: "#",
+                                name: "杨义锋",
+                                mail: "yangyifeng@xdf.cn",
+                                org: "知识管理中心"
+                            },
+                            comment: $form.find("textarea").val(),
+                            time: "刚刚"
+                        }));
+                        $form.remove();
+                        $this.removeClass("active");
+                        $num.text(parseInt($num.text())+1);
+                    }
+                });
+                $form.find(".btn-cancel").click(function(e){
+                    $form.remove();
+                    $this.removeClass("active");
+                });
+            }else {
+                if($this.hasClass("weak")){
+                    tips = "您已踩过";
+                    //$.post("url",{id: $this.closest(".item").attr("data-fdid")});
+                } else if($this.hasClass("praise")){
+                    tips = "您已赞过";
+                    //$.post("url",{id: $this.closest(".item").attr("data-fdid")});
+                }
+                var $num = $this.children(".num");
+                $num.text(parseInt($num.text())+1);
+            }
+            $this.addClass("active").attr("data-original-title",tips);
+        }
+    })
+        .find("dd .btn-ctrl>a").tooltip()
+        .end().find(".commentBox").on("hide",function(){
+                var $btn = $(this).find(".comment-toggle").detach();
+                $btn.children(".txt").text("展开评论");
+                $(this).prev().find(".btn-ctrl").append($btn);
+        })
+            .on("show",function(){
+                var $btn = $(this).prev().find(".comment-toggle").detach();
+                $btn.children(".txt").text("收起评论");
+                $(this).children().prepend($btn);
+            });
+
+    /*发表心情表单*/
+    $("#formAddMood").validate({
+        submitHandler: function(form){
+            var lastDate = $("#listMood>dt:first .date").text();
+            var currDate = formatDate(new Date());
+            //$.post();
+            if(currDate == lastDate){
+                $("#listMood>dd:first").prepend(moodFn({
+                    item: {
+                        id: "fdid000324234324",//ajax
+                        mood: $("#field-mood").val(),
+                        time: "刚刚",
+                        praise: {
+                            count: 0,
+                            did: false
+                        },
+                        weak: {
+                            count: 0,
+                            did: false
+                        },
+                        comment: {
+                            count: 0
+                        }
+                    }
+                }))
+                        .find(".btn-ctrl>a").tooltip();
+            } else {
+                $("#listMood").prepend(moodFn({
+                    list:[
+                        {
+                            date: currDate,
+                            items: [
+                                {
+                                    id: "fdid000324234324",//ajax
+                                    mood: $("#field-mood").val(),
+                                    time: "刚刚",
+                                    praise: {
+                                        count: 0,
+                                        did: false
+                                    },
+                                    weak: {
+                                        count: 0,
+                                        did: false
+                                    },
+                                    comment: {
+                                        count: 0
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }))
+                        .find("dd:first .btn-ctrl>a").tooltip();
+            }
+            $("#field-mood").val("");
+        }
+    })
+
+    function formatDate(d){
+        return ((d.getMonth()+1)<10 ? "0"+(d.getMonth()+1) : d.getMonth()+1) + " " + (d.getDate()<10 ? "0"+ d.getDate() : d.getDate()) + " "
+                + d.getFullYear();
+    }
+
+});
+</script>
+</body>
+</html>

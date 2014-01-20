@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<link href="css/settings.css" rel="stylesheet" type="text/css">
+<link href="css/editProfile.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav">
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"></a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+<div class="fixed-left">
+	<div class="container">
+		<div class="col-left">
+	    	<ul class="nav nav-list sidenav">
+	        	<li class="nav-header">
+	            	<div class="tit-icon_bg"><i class="icon-gear"></i><i class="icon-sj"></i></div>
+	                账号设置
+	            </li>
+	    		<li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+	            <li class="active"><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+	    	</ul>
+	    </div>
+	</div>
+</div>
+<div class="container">
+	<div class="col-right">    	
+    	<div class="section">
+        <div class="page-header">
+        	<div class="tit-icon_bg"><i class="icon-pencil icon-white"></i><i class="icon-sj"></i></div>
+        	<h5>修改密码</h5>
+            <a href="#" class="replyMybk" title="返回主页" ><i class="icon-home icon-white"></i></a>
+        </div>        
+       <div class="page-body"> 
+      	 
+          <form action="#" class="reg_form form-horizontal">
+        	<p class="reg_form-intro">请确认您要修改的新密码。</p>
+        	<div class="control-group">
+        		<label for="user" class="control-label">临时账号</label>
+        		<div class="controls">
+                	<span class="inp-placeholder">cnyangyifeng@gmail.com</span>
+                </div>
+        	</div>    
+             <div class="control-group warning">
+        		<label for="oldPwd" class="control-label">原密码 <span class="text-error">*</span></label>
+        		<div class="controls">
+                	<input id="oldPwd" type="text" class="span4" value="" placeholder="请填写您的原密码">
+                    <span class="help-inline"><b class="icon-disc-bg warning">!</b>请正确填写原密码</span>
+                </div>
+        	</div>
+            <div class="control-group">
+        		<label for="newPwd" class="control-label">新密码<span class="text-error">*</span></label>
+        		<div class="controls">
+                	<input id="newPwd" type="text" class="span4" value="" placeholder="请填写您的新密码">
+                    <span class="help-inline"><b class="icon-disc-bg warning">!</b>请正确填写新密码</span>
+                </div>
+        	</div>           
+            <div class="control-group warning">
+        		<label for="confirmPwd" class="control-label">确认密码<span class="text-error">*</span></label>
+        		<div class="controls">
+                	<input id="confirmPwd" type="text" class="span4" value="" placeholder="请再次确认您的新密码 ">
+                     <span class="help-inline"><b class="icon-disc-bg warning">!</b>密码输入不一致，请重新确认</span>
+                </div>
+        	</div>           
+            <div class="control-group">
+            	<div class="controls">
+                	<button type="button" class="submit btn btn-primary btn-large" >确认修改</button>
+                </div>
+            </div>
+        </form>
+        </div>
+      </div>
+    
+    </div>
+	
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

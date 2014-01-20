@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="css/global.css?id=23" rel="stylesheet" type="text/css">
+<link href="css/DTotal.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav" id="topNav">
+              <li class="itemBg"></li>
+	          <li class="specific"><a href="#">全部课程</a></li>
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li>
+                  <a class="btn-publish" href="#" title="发布课程" >
+                      <i class="icon-book-pencil"></i>
+                  </a>
+              </li>
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"><span class="divider">|</span>退出</a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+
+<section class="container">
+	<section class="clearfix mt20">
+	  <section class="col-left pull-left">
+    	<ul class="nav nav-list sidenav" id="sideNav">
+                <li class="nav-header first"><a href="#">学习跟踪<b class="caret"></b></a></li>
+                <li class="nav-header"><a href="#">授权学习<b class="caret"></b></a></li>
+	            <li class="nav-header">
+                    <span>课程管理<b class="caret"></b></span>
+	            </li>
+	            <li><a href="#"><i class="icon-course-series"></i>我的系列课程</a></li>
+	            <li><a href="#"><i class="icon-course"></i>我的课程</a></li>
+	             <li class="nav-header">
+                     <span>课程素材库<b class="caret"></b></span>
+	            </li>
+                <li class="active"><a href="#"><i class="icon-video"></i>视频</a></li>
+                <li><a href="#"><i class="icon-doc"></i>文档</a></li>
+                <li><a href="#"><i class="icon-ppt"></i>幻灯片</a></li>
+                <li><a href="#"><i class="icon-exam"></i>测试</a></li>
+                <li><a href="#"><i class="icon-task"></i>作业</a></li>
+                <li><a href="#"><i class="icon-txt"></i>在线创作</a></li>
+	    </ul>
+	  </section>
+		<section class="w790 pull-right" id="rightCont">
+	        <div class="page-header bder2" data-spy="affix" data-offset-top="20">
+                <span class="muted">我正在看：</span>    视频
+                <div class="backHome">
+                    <a href="#"><span class="muted">返回</span>主管<span class="muted">首页</span> <i class="icon-home icon-white"></i> </a>
+                </div>
+	        </div>
+            <div class="page-body">
+                <section class="section box-control">
+                    <div class="hd">
+                        <div class="btn-toolbar">
+                            <a class="btn btn-primary" href="#rightCont">添加</a>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    操作
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#rightCont">导出列表</a></li>
+                                    <li><a href="#rightCont">打包下载</a></li>
+                                    <li><a href="#rightCont">批量删除</a></li>
+                                </ul>
+                            </div>
+                            <form class="toolbar-search">
+                                <input type="text" class="search" placeholder="搜索条目">
+                                <i class="icon-search"></i>
+                            </form>
+                            <span class="showState">
+                                <span class="muted">当前显示：</span>含“<a href="#">雅思</a>”的条目
+                            </span>
+                            <a class="btn btn-link" href="#rightCont">清空搜索结果</a>
+                        </div>
+                    </div>
+                    <div class="bd">
+                        <div class="btn-toolbar">
+                            <label class="muted">排序</label>
+                            <div class="btn-group btns-radio" data-toggle="buttons-radio">
+                                <button class="btn btn-large active" type="button">名称</button>
+                                <button class="btn btn-large" type="button">时间</button>
+                                <button class="btn btn-large" type="button">评分</button>
+                            </div>
+                            <label class="radio inline" for="selectCurrPage"><input type="radio" id="selectCurrPage" name="selectCheckbox" checked />选中本页</label>
+                            <label class="radio inline" for="selectAll"><input type="radio" id="selectAll" name="selectCheckbox" />选中全部</label>
+                            <div class="pages pull-right">
+                                <div class="span2">
+                                    第<span> 1 - 10</span> / <span>109</span> 条
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-ctrl" type="button" disabled><i class="icon-chevron-left icon-white"></i></button>
+                                    <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section listWrap">
+                    <ul class="nav list">
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="label label-info">公开</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <i class="icon-transforming" data-toggle="tooltip" data-original-title="转换中..."></i>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="label label-info">加密</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <i class="icon-unpublished" data-toggle="tooltip" data-original-title="未发布"></i>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM <span class="dt">发布者</span> <em>张三</em></span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                        <li><a href="#">
+                            <input type="checkbox" />
+                            <span class="title">雅思写作强化DEMO第01课</span>
+                            <span class="rating-view">
+                                <span class="rating-all">
+                                    <i class="icon-star active"></i><i class="icon-star active"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                 </span>
+                                  <b class="text-warning">2.0</b>
+                            </span>
+                            <span class="date"><i class="icon-time"></i>2013/02/14 10:01 AM</span>
+                            <span class="btns">
+                                <button type="button" class="btn btn-link"><i class="icon-eye"></i><strong>3315</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-thumbs-up"></i><strong>1530</strong></button>
+                                 <b>|</b>
+                                <button type="button" class="btn btn-link"><i class="icon-download"></i><strong>0</strong></button>
+                            </span>
+                        </a></li>
+                    </ul>
+                </section>
+                <div class="pages">
+                    <div class="btn-group dropup">
+                        <button class="btn btn-primary btn-ctrl" type="button" disabled><i class="icon-chevron-left icon-white"></i></button>
+                        <button class="btn btn-primary btn-num" type="button">1</button>
+                        <button class="btn btn-primary btn-num" type="button">2</button>
+                        <button class="btn btn-primary btn-num" type="button">3</button>
+                        <button class="btn btn-primary btn-num" type="button">4</button>
+                        <button class="btn btn-primary btn-num active" type="button">5</button>
+                        <button class="btn btn-primary btn-num" type="button">6</button>
+                        <button class="btn btn-primary btn-num" type="button">7</button>
+                        <button class="btn btn-primary btn-num" type="button">8</button>
+                        <button class="btn btn-primary btn-num" type="button">9</button>
+                        <button class="btn btn-primary btn-num" type="button">10</button>
+                        <button class="btn btn-primary btn-num  dropdown-toggle"  data-toggle="dropdown" type="button">
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#">11-20</a></li>
+                            <li><a href="#">21-30</a></li>
+                            <li><a href="#">31-40</a></li>
+                        </ul>
+                        <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+            </div>
+	    </section>
+	</section>
+
+<!--底部 S-->
+	<footer>
+		<div class="navbar clearfix">
+			<div class="nav">
+				<li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+				<li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+				<li><a href="${ctx }/login">登录</a></li>
+				<li><a href="${ctx }/self_register">注册</a></li>
+				<li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+			</div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+		</div>
+	</footer>
+<!--底部 E-->
+<div class="goTopWrap">
+    <div class="goTop" id="goTop" title="回到顶部"><i class="icon-chevron-up-large"></i></div>
+    <a href="mailto:yangyifeng@xdf.cn" title="发邮件给管理员" class="help">?</a>
+</div>
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.jalert.js"></script>
+
+<script type="text/javascript">	
+	$('[data-toggle="tooltip"]').tooltip();
+    $(function(){
+       $(document).goTop({
+           showAfter:'#goTop',  //必选 需执行返回顶部的元素
+           debug:true,              //开启调试状态
+           showPixels:80,        //滚动条滚动高度 单位 px
+           scrollSpeed:500,     //返回顶部速度
+           callback:function(e){ //回调执行函数
+           }
+       });
+    });
+    $("#goTop").click(function(){
+        jalert_tips("到顶了。。。");
+    });
+    $("#selectCurrPage").click(function(e){
+        jalert("测试弹窗",function(modal){
+            jalert_tips("测试回调。。"+modal.id);
+        });
+    });
+
+</script>
+</body>
+</html>

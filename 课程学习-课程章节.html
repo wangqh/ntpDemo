@@ -1,0 +1,2008 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="theme/default/css/global.css" rel="stylesheet" type="text/css">
+<link href="theme/default/css/layout.css" rel="stylesheet" type="text/css">
+<link href="theme/default/css/webimOfSide.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+
+
+    <!--页面左侧模板-->
+    <script id="pageLeftTemplate" type="text/x-dot-template">
+            <div id="sidebar" class="sidebar" >
+                {{#def.sidenav:it.sidenav}}
+                <div class="bdbt2 leftBox mt20">
+                    <a href="#"><i class="icon-disc-lg-bg"><i class="icon-medal"></i></i>
+                        结业证书</a>
+                </div>
+            </div>
+            {{##def.sidenav:param:
+            <ul class="bdbt2 sidenav" id="sidenav">
+                {{ for(var i=0; i < param.chapter.length+param.lecture.length; i++){ }}
+                    {{~param.chapter :chapter:index}}
+                        {{?chapter.index == i}}
+                            <li class="nav-hd" data-toggle="popover" data-content="{{=chapter.name || ''}}" title="{{=chapter.name || ''}}">
+                                <span class="dt">章<b class="icon-circle-white-large">{{=chapter.num}}</b></span>
+                                <span class="name">{{=chapter.name}}</span>
+                            </li>
+                        {{?}}
+                    {{~}}
+                    {{~param.lecture :lecture:index}}
+                        {{?lecture.index == i}}
+                            <li{{?lecture.status == 'doing'}} class="active"{{?}}>
+                                <a {{?lecture.status != 'unfinish'}}href="#" {{?}}data-fdid="{{=lecture.id}}" data-toggle="popover" data-content="{{=lecture.intro || ''}}" title="{{=lecture.name || ''}}">
+                                    <span class="dt">节{{=lecture.num}} <b class="icon-circle-progress">
+                                        {{?lecture.status != 'unfinish'}}<i class="icon-progress{{?lecture.status == 'doing'}} half{{?}}"></i>{{?}}
+                                    </b></span>
+                                    <span class="name"><i class="icon-{{=lecture.type}}"></i>
+                                    {{=lecture.name || ''}}</span>
+                                </a>
+                            </li>
+                        {{?}}
+                    {{~}}
+                {{ } }}
+            </ul>
+            #}}
+    </script>
+
+    <!--页面右侧模板-->
+    <script id="pageRightTemplate" type="text/x-dot-template">
+            {{#def.pageHeader}}
+            <div class="page-body" id="pageBody">
+                {{#def.pageIntro}}
+                {{?it.type == 'exam' || it.type == 'task'}}
+                    {{#def.examContent}}
+                {{?}}
+            </div>
+    </script>
+
+
+
+    <!--页面主内容区header-->
+    <script id="pageRightHeaderTemplate" type="x-dot-template">
+        <div class="page-header" id="pageHeader" >
+                <div class="hd clearfix">
+                <a class="btn" href="#button" id="prevLecture">
+                <i class="icon-chevron-lg-left"></i>
+                <span>上一节</span>
+                </a>
+                <h1>{{=it.courseName}}   节{{=it.num}} {{=it.lectureName}}
+                    <button class="btn{{?it.isOptional || it.status == "pass"}} btn-success{{?}}{{? it.status == "pass" || !it.isOptional}} disabled{{?}}"{{?it.isOptional}} id="btnOptionalLecture"{{?}}><i class="icon-right"></i>学习通过</button>
+                </h1>
+                <a class="btn disabled" href="#button" id="nextLecture">
+                        <i class="icon-chevron-lg-right"></i>
+                        <span>下一节</span>
+                </a>
+                </div>
+                <div class="bd" id="headToolsBar">
+
+                </div>
+        </div>
+    </script>
+
+    <!--页面主内容区简介-->
+    <script id="pageRightIntroTemplate" type="x-dot-template">
+        <ul class="listIntro bdbt2">
+            <li>
+                <div class="line">
+                    <div class="line">
+                        <span class="label-intro" >学习任务</span>
+                        <small>建议您认真完成所有{{?it.type=='exam'}}题目后提交试卷{{??it.type=='video'}}视频后提交{{??it.type=='task'}}作业后提交作业包{{??it.type=='doc'}}文档后提交{{??it.type=='ppt'}}幻灯片后提交{{?}}： </small></div>
+                </div>
+            </li>
+            <li>
+                <div class="line">
+                    <div class="line">{{=it.lectureIntro || ''}}</div>
+                </div>
+            </li>
+            <li>
+                <div class="line">
+                    <div class="line">
+                        本{{?it.type=='exam'}}测试{{??it.type=='video'}}视频{{??it.type=='task'}}作业包{{??it.type=='doc'}}文档{{??it.type=='ppt'}}幻灯片{{?}}环节为
+                        <b class="text-warning">{{?it.isOptional}}选{{??}}必{{?}}修</b> 环节，
+                        您必须通过全部{{?it.type=='exam'}}试卷{{??it.type=='video'}}视频{{??it.type=='task'}}作业包{{??it.type=='doc'}}文档{{??it.type=='ppt'}}幻灯片{{?}}，
+                        才可以进入下一关继续学习。</div>
+                </div>
+            </li>
+        </ul>
+    </script>
+
+    <!--页面主内容区测试类内容-->
+    <script id="pageRightExamTemplate" type="x-dot-template">
+        <ul class="unstyled listExamPaper" id="listExamPaper">
+            {{~it.listExamPaper :paper:index}}
+                <li class="accordion-group">
+                    <a class="titBar" {{?it.type == 'task' && paper.examPaperStatus == 'pass'}}{{??}}data-toggle="collapse" data-parent="#listExamPaper" {{?}}href="#examPaper{{=index+1}}" title="点击展开试题列表">
+                        <h2>{{?it.type == 'exam'}}试卷{{??it.type == 'task'}}作业包{{?}}{{=index+1}}. {{=paper.name}}</h2>
+                        <p class="muted">共计{{=paper.examCount}}{{?it.type=='exam'}}题{{??it.type=='task'}}个作业{{?}}，满分{{=paper.fullScore}}分，建议{{?it.type=='exam'}}答题{{??it.type=='task'}}完成{{?}}时间为{{=paper.examPaperTime}}分钟。</p>
+                        <span class="icon-state-bg{{?paper.examPaperStatus == 'fail'}} error">未通过
+                        {{??paper.examPaperStatus == 'pass'}} success">通过
+                        {{??paper.examPaperStatus == 'finish'}} info">答完
+                        {{??paper.examPaperStatus == 'unfinish'}}">待答{{?}}</span>
+                    </a>
+                    <div id="examPaper{{=index+1}}" data-fdid="{{=paper.id}}" class="accordion-body collapse">
+
+                    </div>
+                </li>
+            {{~}}
+        </ul>
+    </script>
+
+    <!--试卷详情模板-->
+    <script id="examPaperDetailTemplate" type="x-dot-template">
+        <div class="accordion-inner">
+                <div class="hd">
+                <h2><span class="icon-state-bg{{?it.examPaperStatus == 'fail'}} error">未通过
+                        {{??it.examPaperStatus == 'pass'}} success">通过
+                        {{??it.examPaperStatus == 'finish'}} info">答完
+                        {{??it.examPaperStatus == 'unfinish'}}">待答{{?}}</span> {{?it.type=='exam'}}试卷{{??it.type=='task'}}作业包{{?}}{{=it.num}} {{=it.name}} 共计 <span class="total">{{=it.examCount}}</span>{{?it.type=='exam'}}题{{??it.type=='task'}}个作业{{?}}，满分{{=it.fullScore}}分，建议{{?it.type=='exam'}}答题{{??it.type=='task'}}完成{{?}}时间为{{=it.examPaperTime}}分钟。</h2>
+        <p class="muted">{{=it.examPaperIntro}}</p>
+        <a class="btn btn-link" data-toggle="collapse" data-parent="#listExamPaper" href="#examPaper{{=it.num}}">收起<b class="caret"></b></a>
+        </div>
+            <div id="navExams">
+                    {{~it.listExam :exam1:index1}}
+                    {{~it.listExam :exam:index}}
+                    {{?index1 == exam.index}}
+                    <a class="num{{?exam.status != 'null'}} active"{{??}}" title="待答"{{?}} {{?exam.status == 'error'}}title="答错"{{??exam.status == 'success'}}title="答对"{{??exam.status == 'finish'}}title="答过"{{?}} href="#examStem{{=index1+1}}">
+                    {{=index1+1}}
+                    <i class="icon-circle-{{?exam.status == 'error'}}error{{??exam.status == 'success'}}success{{?}}"></i></a>
+                    {{?}}
+                    {{~}}
+                    {{~}}
+            </div>
+        <form action="{{=it.action || '#'}}" post="post" id="formExam">
+            <input name="fdid" value="{{=it.id}}" type="hidden" />
+            {{?it.type=='exam'}}
+                <div class="bd">
+                <dl class="listExam">
+                {{~it.listExam :exam1:index2}}
+                    {{~it.listExam :exam}}
+                    {{?index2 == exam.index}}
+                        <dt class="examStem" id="examStem{{=index2+1}}">
+                            {{=index2+1}}. {{=exam.examStem}} （{{=exam.examScore}}分）
+                        </dt>
+                        <dd>
+                            <ul class="attachList unstyled">
+                                {{~exam.listAttachment :att1:index1}}
+                                {{~exam.listAttachment :att:index}}
+                                {{?index1 == att.index}}
+                                    <li><a href="{{=att.url}}"><i class="icon-paperClip"></i>{{=att.name}}</a></li>
+                                {{?}}
+                                {{~}}
+                                {{~}}
+                            </ul>
+                            {{?exam.examType == 'completion'}}
+                                {{~exam.listExamAnswer :ans:index}}
+                                <label class="input">
+                                    <b class="icon-circle-bg blue">{{=index+1}}</b>
+                                    <input type="text" required class="input-xxlarge" value="{{=ans}}" name="examAnswer{{=exam.id}}{{=index}}" id="examAnswer{{=exam.id}}{{=index}}" />
+                                </label>
+                                {{~}}
+                            {{??}}
+                                {{~exam.listExamAnswer :ans1:index1}}
+                                {{~exam.listExamAnswer :ans:index}}
+                                {{?index1 == ans.index}}
+                                    <label class="{{?exam.examType == 'single'}}radio{{??}}checkbox{{?}}" >
+                                        <input type="{{?exam.examType == 'single'}}radio{{??}}checkbox{{?}}" {{?ans.isChecked}}checked{{?}} value="{{=index1+1}}" name="examAnswer{{=exam.id}}" />
+                                        {{=ans.name}}
+                                    </label>
+                                {{?}}
+                                {{~}}
+                                {{~}}
+                            {{?}}
+                        </dd>
+                    {{?}}
+                    {{~}}
+                {{~}}
+                </dl>
+                </div>
+            {{??it.type=='task'}}
+                {{~it.listExam :task1:index2}}
+                {{~it.listExam :task}}
+                {{?index2 == task.index}}
+                    <div class="bd">
+                        <div class="pd20">
+                            <div id="examStem{{=index2+1}}">{{=index2+1}}. {{=task.examName}}（{{=task.examScore}}分）</div>
+                            <div>{{=task.examStem}}</div>
+                            <ul class="attachList unstyled">
+                                {{~task.listAttachment :att1:index1}}
+                                {{~task.listAttachment :att}}
+                                {{?index1 == att.index}}
+                                <li><a href="{{=att.url}}"><i class="icon-paperClip"></i>{{=att.name}}</a></li>
+                                {{?}}
+                                {{~}}
+                                {{~}}
+                            </ul>
+                        </div>
+                        <div class="bdt1 pd20">
+                            {{?task.examType == 'uploadWork'}}
+                                <label>上传作业（建议小于2G）</label>
+                                <div class="control-upload">
+                                    <span class="progress"> <div class="bar" style="width:20%;"></div> </span>
+                                    <span class="txt"><span>20%</span>，剩余时间：<span>00:00:29</span></span>
+                                    <button class="btn btn-primary btn-large uploadify" type="button">上传</button>
+                                </div>
+                                <ul class="list-attachment unstyled">
+                                    {{~task.listTaskAttachment :att2}}
+                                        <li id="attach{{=att2.id}}">
+                                            <a href="{{=att2.url}}" class="name"><i class="icon-paperClip"></i>&nbsp;{{=att2.name}} </a>
+                                            <div class="item-ctrl"> <a class="icon-remove-blue" href="#"></a> </div>
+                                        </li>
+                                    {{~}}
+                                </ul>
+                            {{??task.examType == 'onlineAnswer'}}
+                                {{?task.answer}}
+                                    {{=task.answer}}
+                                {{?}}
+                                {{?task.status != 'success'}}
+                                    <label>答题</label>
+                                    <textarea name="answer{{=task.id}}" required class="input-block-level" placeholder="请必务填写" rows="4"></textarea>
+                                {{?}}
+                            {{?}}
+                        </div>
+                        {{?task.status == 'success' || task.status == 'error'}}
+                            <div class="bdt1 pd20">
+                                <div class="media teacherRating">
+                                    <div class="pull-left">
+                                        <a href="#"><img class="media-object" src="{{=task.teacherRating.teacher.imgUrl}}" alt="指导老师"/></a>
+                                        <h3>指导老师</h3>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="media-heading"><label class="label {{?task.status == 'success'}}label-success">通过{{??}}label-important">未通过{{?}}</label>｜ 满分 {{=task.examScore}} 分  ｜ 成绩 {{=task.teacherRating.score}} 分</div>
+                                        <p>{{=task.teacherRating.comment || ''}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {{?}}
+                    </div>
+                {{?}}
+                {{~}}
+                {{~}}
+            {{?}}
+        <div class="ft">
+                <button class="btn btn-primary btn-large" type="submit">提交答案</button>
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-parent="#listExamPaper" data-target="#examPaper{{=it.num}}">收起<b class="caret"></b></button>
+        </div>
+        </form>
+
+        </div>
+    </script>
+
+    <!--试卷状态栏模板-->
+    <script id="examPaperStatusBarTemplate" type="x-dot-template">
+        <div class="examPaperStat">
+            <div class="dt">{{?it.type == 'exam'}}试卷{{??it.type == 'task'}}作业包{{?}}{{=it.num}}</div>
+            你已完成<span class="succ">{{=it.successCount}}</span>{{?it.type == 'exam'}}道题目{{??it.type == 'task'}}个作业{{?}}，
+            共计<span class="total">{{=it.examCount}}</span>{{?it.type == 'exam'}}题{{??it.type == 'task'}}个作业{{?}}
+            <a href="#navExams" data-toggle="collapse" class="showList"><span class="txtShow">展开</span><span class="txtHide">收起</span>{{?it.type == 'exam'}}试题{{??it.type == 'task'}}作业{{?}}列表<b class="caret"></b></a>
+        </div>
+        <div id="navExams" class="collapse in">
+            <div class="collapse-inner">
+                {{~it.listExam :exam1:index1}}
+                {{~it.listExam :exam:index}}
+                {{?index1 == exam.index}}
+                    <a class="num{{?exam.status != 'null'}} active"{{??}}" title="待答"{{?}} {{?exam.status == 'error'}}title="答错"{{??exam.status == 'success'}}title="答对"{{??exam.status == 'finish'}}title="答过"{{?}} href="#examStem{{=index1+1}}">
+                    {{=index1+1}}
+                    <i class="icon-circle-{{?exam.status == 'error'}}error{{??exam.status == 'success'}}success{{?}}"></i></a>
+                {{?}}
+                {{~}}
+                {{~}}
+            </div>
+        </div>
+    </script>
+
+    <!-- 视频、文档等媒体信息模板-->
+    <script id="mediaInfoTemplate" type="x-dot-template">
+        {{#def.mediaInfo:it.defaultMedia}}
+        {{##def.mediaInfo:param:
+            <div class="section mt20">
+                <div class="mediaWrap bdbt2">
+                    <div class="mediaObject">
+                        <div id="flashcontent"></div>
+                    </div>
+                </div>
+                <div class="mediaToolbarWrap">
+                    <div class="mediaToolbar" id="mediaToolbar" data-fdid="{{=param.id}}">
+                        <div class="btn-group">
+                            <a id="btnPraise" class="btn btn-link{{?param.mePraised}} active{{?}}" href="#" title="{{?param.mePraised}}取消赞{{??}}赞{{?}}"><i class="icon-heart-blue"></i><span class="num">{{=param.praiseCount || 0 }}</span></a>
+                            <a id="btnDownload" title="{{?param.canDownload}}点击{{??}}无权{{?}}下载" class="btn btn-link{{?param.canDownload}}" href="{{=param.url}}"{{??}} disabled"{{?}}><i class="icon-download-blue"></i><span class="num">{{=param.downloadCount || 0 }}</span></a>
+                        </div>
+                        <span class="playCount">{{?it.type == 'video'}}播放{{??}}阅读{{?}}  <strong class="num">{{=param.readCount || 0 }}</strong>  次</span>
+                        <button id="btnDoPass" class="btn btn-success"{{?param.isPass}} disabled{{?}}><i class="icon-right"></i>我学会了</button>
+                    </div>
+                    {{#def.listMedia}}
+                </div>
+                <div class="hd">
+                    <div class="tit-icon_bg"><i class="icon-video-intro"></i></div>
+                    <h5>{{?it.type == 'video'}}视频{{??it.type == 'doc'}}文档{{?}}信息</h5>
+                    <div class="pos-right" id="ratingTotal">
+                        <span>综合评分</span>
+                            <span class="rating-all" >
+                                {{ for(var i=0; i<5; i++){ }}
+                                    <i class="icon-star{{?i < param.rating.average}} active{{?}}"></i>
+                                {{ } }}
+                             </span>
+                        <b class="text-warning">{{=param.rating.average || 0}}</b>
+                    </div>
+                </div>
+                <div class="clearfix mt20">
+                    <div class="pull-left video-info">
+                        <h5>{{?it.type == 'video'}}视频{{??it.type == 'doc'}}文档{{?}}名称  <span class="name" id="mediaName">{{=param.name}}</span></h5>
+                        <p class="mediaIntro" id="mediaIntro">
+                            {{=param.intro}}
+                        </p>
+                    </div>
+                    <div class="pull-right">
+                        <dl class="info-rating">
+
+                            <dd id="ratingFive">
+                                <div class="rating span2">
+                                    <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                </div>
+                                <div class="progress-gray span1">
+                                    <div class="bar" style="width: {{=(param.rating.five/param.rating.total)*100}}%;"></div>
+                                </div>
+                                <span class="fs9">{{=param.rating.five}}</span>
+                            </dd>
+                            <dd id="ratingFour">
+                                <div class="rating span2">
+                                    <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                </div>
+                                <div class="progress-gray span1">
+                                    <div class="bar" style="width: {{=(param.rating.four/param.rating.total)*100}}%;"></div>
+                                </div>
+                                <span class="fs9">{{=param.rating.four}}</span>
+                            </dd>
+                            <dd id="ratingThree">
+                                <div class="rating span2">
+                                    <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                                </div>
+                                <div class="progress-gray span1">
+                                    <div class="bar" style="width: {{=(param.rating.three/param.rating.total)*100}}%;"></div>
+                                </div>
+                                <span class="fs9">{{=param.rating.three}}</span>
+                            </dd>
+                            <dd id="ratingTwo">
+                                <div class="rating span2">
+                                    <i class="icon-star"></i><i class="icon-star"></i>
+                                </div>
+                                <div class="progress-gray span1">
+                                    <div class="bar" style="width: {{=(param.rating.two/param.rating.total)*100}}%;"></div>
+                                </div>
+                                <span class="fs9">{{=param.rating.two}}</span>
+                            </dd>
+                            <dd id="ratingOne">
+                                <div class="rating span2">
+                                    <i class="icon-star"></i>
+                                </div>
+                                <div class="progress-gray span1">
+                                    <div class="bar" style="width: {{=(param.rating.one/param.rating.total)*100}}%;"></div>
+                                </div>
+                                <span class="fs9">{{=param.rating.one}}</span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        #}}
+        {{##def.listMedia:
+            <ul class="mediaList nav nav-pills" id="listMedia">
+                {{~it.listMedia :media:index}}
+                <li class="{{?it.defaultMedia.id == media.id}}active{{?}} {{?media.isPass}}pass{{?}}">
+                    <a href="{{=media.url}}" data-fdid="{{=media.id}}" title="{{=media.name}}">
+                        <i class="icon-circle-success"></i>{{?it.type == 'video'}}视频{{??it.type == 'doc'}}文档{{?}}{{=index+1}}
+                    </a>
+                </li>
+                {{~}}
+            </ul>
+        #}}
+    </script>
+
+    <!-- 视频、文档等媒体页面 评论模板-->
+    <script id="mediaCommentTemplate" type="x-dot-template">
+        <div class="section" id="mediaComment">
+            <div class="edit-box">
+                    <div class="box-rating">
+                        <span>评分</span>
+                        <span class="rating-do" id="ratingDo">
+                            {{ for(var i=0; i<5; i++ ){ }}
+                                <i class="icon-star{{?i<it.meRating}} active{{?}}"></i>
+                            {{ } }}
+                         </span>
+                        <span class="point">{{=it.meRating}}</span>
+                    </div>
+                <form action="#listComment" id="formMakeComments" data-fdid="{{=it.mediaComment.id}}" >
+                    <textarea  id="textComment" name="textComment" required class="input-block-level" placeholder="有什么想吐槽的吗？随便写两句文评吧~ : )" ></textarea>
+                    <div class="comm-rating">
+                        <label for="isAnonymity" class="checkbox span1">
+                            <input id="isAnonymity" name="isAnonymity" type="checkbox">匿名发表
+                        </label>
+                        <button class="btn btn-primary" type="submit">发表</button>
+                    </div>
+                </form>
+            </div>
+            <div class="hd" id="hd-comment">
+                <div class="tit-icon_bg"><i class="icon-white-info"></i></div>
+                <h5>全部评论</h5>
+                <div class="pages">
+                    <div class="span2">
+                        第<span> 1 - 10</span> / <span>109</span> 条
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" disabled><i class="icon-chevron-left icon-white"></i></button>
+                        <button class="btn btn-primary"><i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+            </div>
+            <ul class="media-list comment-list" id="listComment">
+            </ul>
+            <div class="comment-list-bottom clearfix">
+                <div class="pages pull-right">
+                    <div class="span2">
+                        第<span> 1 - 10</span> / <span>109</span> 条
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" disabled><i class="icon-chevron-left icon-white"></i></button>
+                        <button class="btn btn-primary"><i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!--评论列表 模板-->
+    <script id="listCommentTemplate" type="x-dot-template">
+        {{~it :item:index}}
+        <li class="media" data-fdid="{{=item.id}}">
+            <a href="{{?item.isAnonymity}}#{{??}}{{=item.author.link}}{{?}}" class="pull-left"><img src="{{=!item.isAnonymity && item.author.imgUrl || 'images/face-placeholder.png'}}" alt="{{?item.isAnonymity}}匿名{{??}}{{=item.author.name}}{{?}}" border="0" class="media-object"></a>
+            <div class="media-body">
+                <div class="media-heading">
+                    <span class="name">{{?item.isAnonymity}}匿名{{??}}{{=item.author.name}}</span>（<span class="mail">{{=item.author.mail}}</span>）    来自 <span class="org">{{=item.author.org}}</span>{{?}}
+                    {{?!item.replyTo}}
+                        <div class="rating-view">
+                                    <span class="rating-all">
+                                        {{ for(var i=0; i<5; i++){ }}
+                                            <i class="icon-star{{?i < item.rating}} active{{?}}"></i>
+                                        {{ } }}
+                                    </span>
+                            <b class="text-warning">{{=item.rating}}</b>
+                        </div>
+                    {{?}}
+                </div>
+                <p class="comt-content">
+                    {{?item.replyTo}}回复<a href="{{=item.replyTo.link || '#'}}" class="replyOf">{{=item.replyTo.name}}（{{=item.replyTo.mail}}, {{=item.replyTo.org}}）</a>：{{?}}{{=item.comment}}
+                </p>
+                <div class="media-footing">
+                    <div class="clearfix">
+                        <span class="pull-left"><i class="icon-time"></i>{{=item.date}}
+                        </span>
+                        <div class="pull-right btns-comt">
+                            <a href="#" class="btnPraise{{?item.mePraised}} active{{?}}"><i class="icon-thumbs-up"></i><span class="num">{{=item.praiseCount}}</span></a>
+                            <a href="#" class="btnWeak{{?item.meWeaked}} active{{?}}"><i class="icon-thumbs-down"></i><span class="num">{{=item.weakCount}}</span></a>
+                            <a href="#" class="btnComment"><i class="icon-dialog"></i><span class="num">{{=item.commentCount}}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {{~}}
+    </script>
+
+    <!--回复评论表单 模板-->
+    <script id="formReplyCommentTemplate" type="x-dot-template">
+        <div class="form-reply">
+            <form id="formReply">
+                    <textarea class="input-block-level" required id="replyComm" name="replyComm" rows="3" placeholder="回复 {{=it.name}}"></textarea>
+                <div class="form-action">
+                     <div class="btn-group">
+                        <button class="btn btn-primary" type="submit">回复</button>
+                        <button class="btn btn-cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+
+<!-- 侧边栏 头像列表模块  -->
+<script id="sideListFaceTemplate" type="x-dot-template">
+    <!-- 侧边栏 头像列表模块 S -->
+    <div class="side_listFace_md" id="sideListFace">
+        <div class="side_listFace_wrap">
+            <ul class="side_listFace">
+                {{~it.listLearner :item}}
+                <li><a href="#{{=item.id}}" title="{{=item.name}}">
+                    <img src="{{=item.imgUrl || './images/default-face-45.png'}}" alt="{{=item.name}}"/>
+                </a></li>
+                {{~}}
+            </ul>
+            <a href="#" class="prev hide"><b class="caret"></b></a>
+            <a href="#" class="next hide"><b class="caret"></b></a>
+        </div>
+        <div class="side_support">
+            <h5>支持团队</h5>
+            <ul class="side_support_list">
+                <li{{?!it.mentor}} class="disabled"{{?}}>
+                <a href="#{{=it.mentor ? it.mentor.id : ''}}" title="{{=it.mentor ? it.mentor.name : ''}}">
+                    <i class="icon-face-mentor"></i>
+                </a>
+                <h6>导师</h6>
+                </li>
+                <li>
+                    <a href="#{{=it.author.id}}" title="{{=it.author.name}}">
+                        <i class="icon-face-author"></i>
+                    </a>
+                    <h6>创作者</h6>
+                </li>
+                <li>
+                    <a href="#{{=it.admin.id}}" title="{{=it.admin.name}}">
+                        <i class="icon-face-admin"></i>
+                    </a>
+                    <h6>平台运营</h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 侧边栏 头像列表模块 D -->
+</script>
+
+<!-- 侧边栏 聊天窗口模板  -->
+<script id="chatDialogTemplate" type="x-dot-template">
+    <!--聊天窗口 start-->
+    <div id="side_webim" class="side_webim fade in" data-toggle="alert">
+        <a class="close" href="#" data-dismiss="alert">&times;</a>
+        <div class="side_webim_hd">
+            <img src="{{!it.user.imgUrl || './images/default-face-45.png'}}" alt="" class="img-polaroid face" />
+            <span class="name">{{=it.user.name}}</span>
+            <span class="org" title="{{=it.user.org}} {{=it.user.department}}">{{=it.user.org.length>8?it.user.org.substr(0,8)+'...':it.user.org}} {{=it.user.department.length>8?it.user.department.substr(0,8)+'...':it.user.department}}</span>
+        </div>
+        <div class="side_webim_bd">
+            <div class="side_webim_row">
+                <span>TA的电话</span>
+                    <span  class="tel">
+                        <i class="icon-tel"></i>
+                        {{=it.user.tel}}
+                    </span>
+            </div>
+            <div class="side_webim_chatLog">
+                <div class="webim_chat_list" id="listChatLog">
+                </div>
+            </div>
+            <a class="webim_chatLog_link" href="私信-与某人的对话.html?{{=it.user.id}}">聊天纪录</a>
+        </div>
+        <div class="side_webim_ft">
+            <form action="#" id="formWebim" class="formWebim">
+                <input type="hidden" id="userId" name="userId" value="{{=it.user.id}}"/>
+                <textarea name="webim_input" id="webim_input" class="webim_input"  placeholder="200字" required maxlength="200" rows="2"></textarea>
+                <div class="formWebimActs">
+                    <i class="icon-envelope"></i>
+                    <a href="mailto:{{=it.user.mail}}" class="mailTo">给TA发邮件</a>
+                    <button class="btn btn-primary" type="submit">发送</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--聊天窗口 end-->
+</script>
+
+<!-- 聊天纪录列表 模板 -->
+<script id="listChatLogTemplate" type="text/x-dot-template">
+    {{~it :item}}
+    <div class="webim_chat_item">
+        <div class="webim_chat_item_hd">
+            <span class="webim_date">{{=item.date}}</span>
+        </div>
+        <div class="webim_chat_item_bd">
+            {{~item.list :dia}}
+            <div class="webim_dia_box {{?dia.isMe}}webim_dia_r{{??}}webim_dia_l{{?}}">
+                <div class="webim_date">{{=dia.time}}</div>
+                <div class="webim_dia_bg">
+                    <div class="dia_caret"><b></b></div>
+                    <div class="webim_dia_cont">
+                        {{=dia.msg}}
+                    </div>
+                </div>
+            </div>
+            {{~}}
+        </div>
+    </div>
+    {{~}}
+</script>
+
+    <script src="js/doT.min.js"></script>
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav">
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"></a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+
+<section class="container pr">
+    <section class="clearfix" >
+        <section class="col-left" id="sideBar">
+        </section>
+        <section class="col-right" id="mainContent">
+        </section>
+    </section>
+
+
+    <!--底部 S-->
+    <footer>
+        <div class="navbar clearfix">
+            <div class="nav">
+                <li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+                <li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+                <li><a href="${ctx }/login">登录</a></li>
+                <li><a href="${ctx }/self_register">注册</a></li>
+                <li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+            </div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+        </div>
+    </footer>
+    <!--底部 E-->
+    <div class="goTopWrap">
+        <div class="goTop" id="goTop" title="回到顶部"><i class="icon-chevron-up-large"></i></div>
+        <a href="mailto:yangyifeng@xdf.cn" title="发邮件给管理员" class="help">?</a>
+    </div>
+</section>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/webimOfSide.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(document).goTop({
+        showAfter:'#goTop',  //必选 需执行返回顶部的元素
+        debug:true,              //开启调试状态
+        showPixels:80,        //滚动条滚动高度 单位 px
+        scrollSpeed:500,     //返回顶部速度
+        callback:function(e){ //回调执行函数
+        }
+    });
+    $("#goTop").next(".help").addClass("light").before('<a href="/JensProject/passThrough/getCourseFeeling?courseId=14356fe06daada853b5442f4569b43ee" title="课程跟踪" ><i class="icon-tracking"></i></a>');
+});
+    $(function(){
+        //页面左侧模板函数
+        var pageLeftBarFn = doT.template(document.getElementById("pageLeftTemplate").text);
+
+        //页面右侧模板函数
+        var rightContentFn = doT.template(document.getElementById("pageRightTemplate").text,undefined,{
+            pageHeader: document.getElementById("pageRightHeaderTemplate").text,
+            pageIntro: document.getElementById("pageRightIntroTemplate").text,
+            examContent: document.getElementById("pageRightExamTemplate").text
+        });
+
+        /*试卷详情模板函数*/
+        var examPaperDetailFn = doT.template(document.getElementById("examPaperDetailTemplate").text);
+        /*试卷状态栏模板函数*/
+        var examPaperStatusBarFn = doT.template(document.getElementById("examPaperStatusBarTemplate").text);
+
+        /*视频、文档等媒体信息 模板函数*/
+        var mediaInfoFn = doT.template(document.getElementById("mediaInfoTemplate").text);
+        /*视频、文档等媒体评论 模板函数*/
+        var mediaCommentFn = doT.template(document.getElementById("mediaCommentTemplate").text);
+        /*视频、文档等媒体评论列表 模板函数*/
+        var listCommentFn = doT.template(document.getElementById("listCommentTemplate").text);
+        /*视频、文档等媒体回复评论表单 模板函数*/
+        var formReplyCommentFn = doT.template(document.getElementById("formReplyCommentTemplate").text);
+
+        var leftData = {
+            sidenav: {
+                chapter:[
+                    {
+                        index: 4,
+                        num: 2,
+                        name: "业务学习"
+                    },
+                    {
+                        index: 0,
+                        num: 1,
+                        name: "业务学习"
+                    }
+                ],
+                lecture: [
+                    {
+                        id: "fdid345320432",
+                        index: 1,
+                        num: 1,
+                        type: "video",
+                        name: "学习入门视频",
+                        intro: "本课程为您介绍在线考试流程和相关注意事项",
+                        status: "pass"
+                    },
+                    {
+                        id: "fdid0wfwef432",
+                        index: 2,
+                        num: 2,
+                        type: "exam",
+                        name: "在线测试",
+                        intro: "本课程为您介绍在线考试流程和相关注意事项",
+                        status: "pass"
+                    },
+                    {
+                        id: "fdid9094858345",
+                        index: 3,
+                        num: 3,
+                        type: "task",
+                        name: "提交学术作业",
+                        intro: "本课程为您介绍在线考试流程和相关注意事项",
+                        status: "pass"
+                    },
+                    {
+                        id: "fdid000000000",
+                        index: 5,
+                        num: 4,
+                        type: "doc",
+                        name: "文档",
+                        intro: "本课程为您介绍在线考试流程和相关注意事项",
+                        status: "doing"
+                    },
+                    {
+                        id: "fdid32432432432",
+                        index: 6,
+                        num: 5,
+                        type: "ppt",
+                        name: "幻灯片",
+                        intro: "本课程为您介绍在线考试流程和相关注意事项",
+                        status: "unfinish"
+                    }
+                ]
+            }
+        }
+
+        $("#sideBar").html(pageLeftBarFn(leftData));
+
+        //左侧菜单定位
+        /*setTimeout(function(){
+            $("#sidebar").affix({
+                offset: {
+                    bottom: 60
+                }
+            }).parent().height($("#sidebar").height());
+        },100);*/
+
+        var examData = {// 测试用 数据 ，ajax后删除
+            type: "exam",
+            status: "doing",
+            courseName: "雅思口语新教师培训课程",
+            lectureName: "参加在线测试",
+            lectureIntro: "为获得更好的测试效果，建议您关闭IM聊天工具、视频音频等干扰源。测试过程中尽量不要离开。请勿关闭浏览器，否则测试结果将无法保存。",
+            num: 2,
+            isOptional: true,
+            listExamPaper: [//试卷列表数据结构
+                {
+                    id: "fdid08582300324",
+                    name: "雅思口语强化课程教案解读主试卷",
+                    fullScore: 50,
+                    examCount: 3,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "unfinish"//unfinish, pass, fail, finish
+                },
+                {
+                    id: "fdid08580000432",
+                    name: "雅思口语强化课程教案解读主试卷2",
+                    fullScore: 50,
+                    examCount: 3,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "pass"//unfinish, pass, fail, finish
+                },
+                {
+                    id: "fdid085800324324",
+                    name: "雅思口语强化课程教案解读主试卷3",
+                    fullScore: 50,
+                    examCount: 3,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "fail"//unfinish, pass, fail, finish
+                }
+            ]
+        }
+
+        var taskData = {// 测试用 数据 ，ajax后删除
+            type: "task",
+            status: "doing",
+            courseName: "雅思口语新教师培训课程",
+            lectureName: "提交学术作业",
+            lectureIntro: "为获得更好的测试效果，建议您关闭IM聊天工具、视频音频等干扰源。测试过程中尽量不要离开。请勿关闭浏览器，否则测试结果将无法保存。",
+            num: 2,
+            isOptional: false,
+            listExamPaper: [//作业包 列表数据结构
+                {
+                    id: "fdid08582300324",
+                    name: "雅思口语强化课程教案解读作业包",
+                    fullScore: 50,
+                    examCount: 4,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "unfinish"//unfinish, pass, fail, finish
+                },
+                {
+                    id: "fdid08582300324",
+                    name: "雅思口语强化课程教案解读作业包",
+                    fullScore: 50,
+                    examCount: 4,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "pass"//unfinish, pass, fail, finish
+                },
+                {
+                    id: "fdid08582300324",
+                    name: "雅思口语强化课程教案解读作业包",
+                    fullScore: 50,
+                    examCount: 4,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "fail"//unfinish, pass, fail, finish
+                },
+                {
+                    id: "fdid08582300324",
+                    name: "雅思口语强化课程教案解读作业包",
+                    fullScore: 50,
+                    examCount: 4,
+                    examPaperTime: 20,
+                    examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                    examPaperStatus: "finish"//unfinish, pass, fail, finish
+                }
+            ]
+        }
+
+        var mediaData = {
+            type: "video",
+            status: "pass",
+            courseName: "雅思口语新教师培训课程",
+            lectureName: "学习入门视频",
+            lectureIntro: "为获得更好的测试效果，建议您关闭IM聊天工具、视频音频等干扰源。测试过程中尽量不要离开。请勿关闭浏览器，否则测试结果将无法保存。",
+            num: 1,
+            isOptional: false,
+            defaultMedia: {
+                id: "fdid0000054642352",
+                isPass: false,
+                name: "新东方的战略",
+                url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc",
+                intro: "本视频由集团总公司人力资源部负责监制，生动活泼地展示了新东方 企业及教职员工风采，强力推荐。",
+                mePraised: false,
+                canDownload: true,
+                praiseCount: 324,
+                downloadCount: 23,
+                readCount: 234325,
+                meRating: 3,
+                rating: {
+                    average: 4,
+                    total: 38,
+                    five: 26,
+                    four: 5,
+                    three: 2,
+                    two: 3,
+                    one: 2
+                },
+                mediaComment: {
+                    id: "fdid0930230453254",
+                    listComment: [
+                        {
+                            id: "fdid1221",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: "./images/temp-face.jpg",
+                                link: "#profile",
+                                name: "张三",
+                                mail: "zhangsan5@xdf.cn",
+                                org: "南京学校"
+                            },
+                            comment: "哥们儿，洗洗睡吧~",
+                            date: "15分钟前",
+                            replyTo: {
+                                name: "李四",
+                                link: "#profile",
+                                mail: "lisi2@xdf.cn",
+                                org: "广州学校"
+                            },
+                            mePraised: true,
+                            praiseCount: 45,
+                            meWeaked: false,
+                            weakCount: 10,
+                            commentCount: 12
+                        },
+                        {
+                            id: "fdid00003223",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: null,
+                                link: "#profile",
+                                name: "李四",
+                                mail: "lisi2@xdf.cn",
+                                org: "广州学校"
+                            },
+                            rating: 3,
+                            comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。",
+                            date: "50分钟前",
+                            mePraised: false,
+                            praiseCount: 25,
+                            meWeaked: true,
+                            weakCount: 2,
+                            commentCount: 6
+                        },
+                        {
+                            id: "fdid0777453",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: null,
+                                link: "#profile",
+                                name: "王二",
+                                mail: "wanger@xdf.cn",
+                                org: "北京学校"
+                            },
+                            rating: 5,
+                            comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。",
+                            date: "2个小时前",
+                            mePraised: false,
+                            praiseCount: 22,
+                            meWeaked: false,
+                            weakCount: 0,
+                            commentCount: 3
+                        }
+                    ]
+                }
+            },
+            listMedia: [
+                {
+                    id: "fdid435242",
+                    isPass: true,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdid11111678787",
+                    isPass: true,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid0000054642352",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                },
+                {
+                    id: "fdid434t5434434",
+                    isPass: false,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdidregergrgrr43434",
+                    isPass: true,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid443454655555",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                },
+                {
+                    id: "fdid085465436",
+                    isPass: true,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdid4077653324",
+                    isPass: false,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid4htehrew4334",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                },
+                {
+                    id: "fdid407765332443525",
+                    isPass: false,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid4htehrew4234343334",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                }
+            ]
+        }
+
+        var docData = {
+            type: "doc",
+            status: "doing",
+            courseName: "雅思口语新教师培训课程",
+            lectureName: "学习入门文档",
+            lectureIntro: "为获得更好的测试效果，建议您关闭IM聊天工具、视频音频等干扰源。测试过程中尽量不要离开。请勿关闭浏览器，否则测试结果将无法保存。",
+            num: 4,
+            isOptional: false,
+            defaultMedia: {
+                id: "fdid0000054642352",
+                isPass: false,
+                name: "新东方的战略",
+                url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc",
+                intro: "本文档由集团总公司人力资源部负责监制，生动活泼地展示了新东方 企业及教职员工风采，强力推荐。",
+                mePraised: false,
+                canDownload: true,
+                praiseCount: 324,
+                downloadCount: 23,
+                readCount: 234325,
+                meRating: 3,
+                rating: {
+                    average: 4,
+                    total: 38,
+                    five: 26,
+                    four: 5,
+                    three: 2,
+                    two: 3,
+                    one: 2
+                },
+                mediaComment: {
+                    id: "fdid0930230453254",
+                    listComment: [
+                        {
+                            id: "fdid1221",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: "./images/temp-face.jpg",
+                                link: "#profile",
+                                name: "张三",
+                                mail: "zhangsan5@xdf.cn",
+                                org: "南京学校"
+                            },
+                            comment: "哥们儿，洗洗睡吧~",
+                            date: "15分钟前",
+                            replyTo: {
+                                name: "李四",
+                                link: "#profile",
+                                mail: "lisi2@xdf.cn",
+                                org: "广州学校"
+                            },
+                            mePraised: true,
+                            praiseCount: 45,
+                            meWeaked: false,
+                            weakCount: 10,
+                            commentCount: 12
+                        },
+                        {
+                            id: "fdid00003223",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: null,
+                                link: "#profile",
+                                name: "李四",
+                                mail: "lisi2@xdf.cn",
+                                org: "广州学校"
+                            },
+                            rating: 3,
+                            comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。",
+                            date: "50分钟前",
+                            mePraised: false,
+                            praiseCount: 25,
+                            meWeaked: true,
+                            weakCount: 2,
+                            commentCount: 6
+                        },
+                        {
+                            id: "fdid0777453",
+                            isAnonymity:false,
+                            author: {
+                                imgUrl: null,
+                                link: "#profile",
+                                name: "王二",
+                                mail: "wanger@xdf.cn",
+                                org: "北京学校"
+                            },
+                            rating: 5,
+                            comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。",
+                            date: "2个小时前",
+                            mePraised: false,
+                            praiseCount: 22,
+                            meWeaked: false,
+                            weakCount: 0,
+                            commentCount: 3
+                        }
+                    ]
+                }
+            },
+            listMedia: [
+                {
+                    id: "fdid435242",
+                    isPass: true,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdid11111678787",
+                    isPass: true,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid0000054642352",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                },
+                {
+                    id: "fdid434t5434434",
+                    isPass: false,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdidregergrgrr43434",
+                    isPass: true,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid443454655555",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                },
+                {
+                    id: "fdid085465436",
+                    isPass: true,
+                    name: "新东方的愿景",
+                    url: "mp4:office/kmss/resource/201306/154/1ipxy20dlbt45933r7u7"
+                },
+                {
+                    id: "fdid4077653324",
+                    isPass: false,
+                    name: "新东方核心价值观",
+                    url: "mp4:office/kmss/resource/201306/154/l54f8b8cly4zrd19cpau"
+                },
+                {
+                    id: "fdid4htehrew4334",
+                    isPass: false,
+                    name: "新东方的战略",
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc"
+                }
+            ]
+        }
+        $("[data-toggle='popover']").popover({
+            trigger: "hover"
+        });
+        $("#sidenav>li>a").click(function(e){
+                    e.preventDefault();
+                    if($(this).attr("href")){//已通章节可点
+                        $(this).parent().addClass("active").siblings("li").removeClass("active");
+                        loadRightCont($(this).attr("data-fdid"));
+                    }
+                });
+
+        loadRightCont("fdid0wfwef432");//默认加载章节 参数：节id
+
+        function loadRightCont(fdid){
+            //$.get("url",{id: fdid}).success(function(result){//  ajax
+            var result;//测试用 数据 ，ajax后删除
+            for(var i in leftData.sidenav.lecture){//测试用  ，ajax后删除
+                if(leftData.sidenav.lecture[i].id == fdid){
+                    switch (leftData.sidenav.lecture[i].type)
+                    {
+                        case "exam":
+                            result = examData;
+                            break;
+                        case "doc":
+                            result = docData;
+                            break;
+                        case "task":
+                            result = taskData;
+                            break;
+                        case "media":
+                        default :
+                            result = mediaData;
+                    }
+                }
+            }
+            $("#mainContent").html(rightContentFn(result));
+            if(result.type == "exam" || result.type == "task"){
+                afterLoadExamOrTaskPage(result);
+            } else if(result.type == "video" || result.type == "doc"){
+                afterLoadMediaPage(result);
+            }
+            //});
+            $("#pageHeader").affix({
+                offset: {
+                    top: 20
+                }
+            });
+            $(window).on("scroll",function(){
+                var hdH = 100;
+                if($("#pageHeader").hasClass("affix-top")){
+                    $("#pageBody").css("margin-top",0);
+                    hdH = $("#pageHeader").height();
+                } else {
+                    $("#pageBody").css("margin-top",hdH);
+                }
+            });
+
+            //可选章节按钮
+            $("#btnOptionalLecture")
+                    .click(function(e){
+                        $(this).addClass("disabled btn-success");
+                        $("#nextLecture").removeClass("disabled");
+                    });
+        }
+        /*视频、文档等媒体页加载头部后执行方法*/
+        function afterLoadMediaPage(data){
+            var $body = $("#pageBody");
+            $body.append(mediaInfoFn(data))
+                    .append(mediaCommentFn(data.defaultMedia));
+            $("#listComment").html(listCommentFn(data.defaultMedia.mediaComment.listComment));
+
+            /*评分效果*/
+            $body.delegate("#ratingDo>i","click",function(e){
+                var $this = $(this),
+                        index = $this.index();
+                    $this.addClass("active").prevAll().addClass("active");
+                    $this.nextAll().removeClass("active");
+                    $this.parent().nextAll(".point").text(index+1);
+                    $.post("url",{rete: index + 1})//提交评分
+            })  /*评论列表中按钮事件*/
+                .delegate("#listComment>.media .btns-comt>a","click",function(e){
+                    e.preventDefault();
+                        var $this = $(this);
+                        var itemId = $this.closest(".media").attr("data-fdid");
+                        var $num = $this.children(".num");
+                        if(!$this.hasClass("active")){
+                            if($this.hasClass("btnPraise")){//赞
+                                $num.text(parseInt($num.text()) + 1);
+                                //$.post("url",{id: itemId})
+                            } else if($this.hasClass("btnWeak")){//踩
+                                $num.text(parseInt($num.text()) + 1);
+                                //$.post("url",{id: itemId})
+                            } else if($this.hasClass("btnComment")){//评论
+                                if($("#formReply").length){
+                                    alert("请先保存其它回复");
+                                } else {
+                                    var $mediaBody = $this.closest(".media-body");
+                                    var toName =  $mediaBody.find(".media-heading>.name").text();
+                                    var toMail =  $mediaBody.find(".media-heading>.mail").text();
+                                    var toOrg =  $mediaBody.find(".media-heading>.org").text();
+                                    var toLink = $mediaBody.prev("a").attr("href");
+                                    $this.closest(".clearfix").after(formReplyCommentFn({
+                                        name: toName
+                                    }));
+                                    /*评论列表中回复表单验证*/
+                                    $("#formReply").validate({
+                                        submitHandler: function(form){
+
+                                            var txtComm = $("#replyComm").val();
+                                            var $list = $("#listComment");
+
+                                            var tempData = {
+                                                comment: txtComm,
+                                                date: "刚刚",
+                                                replyTo: {
+                                                    name: toName,
+                                                    link: toLink,
+                                                    mail: toMail,
+                                                    org: toOrg
+                                                },
+                                                mePraised: false,
+                                                praiseCount: 0,
+                                                meWeaked: false,
+                                                weakCount: 0,
+                                                commentCount: 0
+                                            }
+                                                tempData.author = {//取得当前账号信息
+                                                    imgUrl: "./images/temp-face.jpg",
+                                                    link: "#profile",
+                                                    name: "杨义锋",
+                                                    mail: "yangyf@xdf.cn",
+                                                    org: "北京学校"
+                                                }
+                                            tempData.id = "fdid2385932432";//ajax post后 删除
+                                            /*$.post("url",tempData)
+                                             .success(function(result){
+                                             tempData.id = result.id;
+                                             //$("#listComment").prepend(listCommentFn([tempData]));
+                                             });*/
+                                            $("body").animate({scrollTop:$("#hd-comment").offset().top - $("#pageHeader").height() - 60},400,"swing",function(){
+                                                $list.prepend(listCommentFn([tempData]));//ajax post后 删除
+                                            });
+
+                                            if($list.children(".media").length > 10){
+                                                $list.children(".media").last().remove();
+                                            }
+                                            $(form).parent(".form-reply").remove();
+                                            $num.text(parseInt($num.text()) + 1);
+                                            //$.post("url",{id: itemId})
+                                            $this.removeClass("active");
+                                        }
+                                    });
+                                    $("#formReply .btn-cancel").click(function(e){
+                                        $(this).closest(".form-reply").remove();
+                                        $this.removeClass("active");
+                                    });
+
+                                }
+                            }
+                            $this.addClass("active");
+                        }
+                })
+
+            /*评分表单*/
+            $("#formMakeComments").validate({
+                submitHandler: submitFormComment
+            });
+
+            /*提交评论表单*/
+            function submitFormComment(form){
+                var $list = $("#listComment");
+                var tempData = {
+                    isAnonymity: $("#isAnonymity").is(":checked"),
+                    rating: $("#ratingDo").next(".point").text(),
+                    comment: $("#textComment").val(),
+                    date: "刚刚",
+                    mePraised: false,
+                    praiseCount: 0,
+                    meWeaked: false,
+                    weakCount: 0,
+                    commentCount: 0
+                }
+                if(!tempData.isAnonymity){
+                    tempData.author = {//ajax 取得当前账号信息
+                        imgUrl: "./images/temp-face.jpg",
+                        link: "#profile",
+                        name: "杨义锋",
+                        mail: "yangyf@xdf.cn",
+                        org: "北京学校"
+                    }
+                }
+                tempData.id = "fdid2385932400032";//ajax post后 删除
+                /*$.post("url",tempData)
+                 .success(function(result){
+                 tempData.id = result.id;
+                 //$("#listComment").prepend(listCommentFn([tempData]));
+                 });*/
+                $list.prepend(listCommentFn([tempData]));//ajax post后 删除
+                if($list.children(".media").length > 10){
+                    $list.children(".media").last().remove();
+                }
+                $("#textComment").val("");
+                $("#isAnonymity").removeAttr("checked");
+            }
+
+           /* $("head").loadJS({name: "SWFobject.js"});
+
+            *//**************************  如下代码把 videoplayer.swf 嵌入到 id 为 flashcontent 的div中  *********************//*
+            var flashvars =
+            {
+                //flash接收的参数
+                autoPlay:'true',
+                skin:"http://me.xdf.cn:80/iportal/sys/attachment/video/videoPlayerSkin.swf",
+                video: data.defaultMedia.url,
+                fms:"rtmp://video.xdf.cn/V3/"
+            };
+            var params =
+            {
+                allowScriptAccess: "always",
+                allowFullScreen:"true",
+                wmode:"transparent",
+                quality:"high"
+            };
+            var attributes =
+            {
+                id: "myflash"
+            };
+            swfobject.embedSWF("http://me.xdf.cn:80/iportal/sys/attachment/video/videoplayer.swf", "flashcontent",
+                    "100%", "510", "6.0.0", "expressInstall.swf", flashvars, params, attributes);*/
+            var $mediaToolbar = $("#mediaToolbar");
+
+            $("#listMedia>li>a").bind("click",function(e){
+                e.preventDefault();
+                var $this = $(this);
+                $this.parent("li").addClass("active").siblings().removeClass("active");
+               /* flashvars.video = $this.attr("href");
+                swfobject.embedSWF("http://me.xdf.cn:80/iportal/sys/attachment/video/videoplayer.swf", "myflash",
+                        "100%", "510", "6.0.0", "expressInstall.swf", flashvars, params, attributes);*/
+                /*$.getJSON("url",{id: $this.attr("data-fdid")}).success(function(result){
+                    //
+                });*/
+                var result = {
+                    isPass: true,
+                    url: "mp4:office/kmss/resource/201306/154/f6u7hhqtpf2eutx9v9uc",//下载url
+                    intro: "test本视频由集团总公司人力资源部负责监制，生动活泼地展示了新东方 企业及教职员工风采，强力推荐。",
+                    mePraised: true,
+                    canDownload: false,
+                    praiseCount: 54,
+                    downloadCount: 0,
+                    readCount: 325,
+                    meRating: 0,
+                    rating: {
+                        average: 3,
+                        total: 26,
+                        five: 16,
+                        four: 3,
+                        three: 2,
+                        two: 3,
+                        one: 2
+                    },
+                    mediaComment: {
+                        id: "fdid00877656545",
+                        listComment: [
+                            {
+                                id: "fdid187658",
+                                isAnonymity:false,
+                                author: {
+                                    imgUrl: "./images/temp-face.jpg",
+                                    link: "#profile",
+                                    name: "张四",
+                                    mail: "zhangsan5@xdf.cn",
+                                    org: "南京学校"
+                                },
+                                rating: 5,
+                                comment: "哥们儿，洗洗睡吧~",
+                                date: "15分钟前",
+                                replyTo: {
+                                    name: "李三",
+                                    link: "#profile",
+                                    mail: "lisi2@xdf.cn",
+                                    org: "广州学校"
+                                },
+                                mePraised: true,
+                                praiseCount: 45,
+                                meWeaked: false,
+                                weakCount: 10,
+                                commentCount: 12
+                            },
+                            {
+                                id: "fdid00003223",
+                                isAnonymity:false,
+                                author: {
+                                    imgUrl: null,
+                                    link: "#profile",
+                                    name: "李三",
+                                    mail: "lisi2@xdf.cn",
+                                    org: "广州学校"
+                                },
+                                rating: 2,
+                                comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。",
+                                date: "50分钟前",
+                                mePraised: false,
+                                praiseCount: 25,
+                                meWeaked: true,
+                                weakCount: 2,
+                                commentCount: 6
+                            }
+                        ]
+                    }
+                }
+                $("#btnPraise").addClass(result.mePraised ? "active" : '')
+                        .children(".num").text(result.praiseCount);
+                $("#btnDownload").addClass(result.canDownload ? '' : 'disabled').attr("data-original-title",result.canDownload ? '点击下载' : '无权下载')
+                        .children(".num").text(result.downloadCount);
+                $("#btnDoPass").attr("disabled",result.isPass ? true : false);
+                $mediaToolbar.find(".playCount>.num").text(result.readCount);
+                $("#mediaName").text($this.attr("title"));
+                $("#mediaIntro").text(result.intro);
+                $("#ratingTotal").find(".rating-all>.icon-star").each(function(i){
+                    if(i < result.rating.average){
+                        $(this).addClass("active");
+                    } else {
+                        $(this).removeClass("active");
+                    }
+                }).end().children("b.text-warning").text(result.rating.average);
+                $("#ratingFive").find(".progress-gray>.bar")
+                        .width(result.rating.five/result.rating.total*100 + "%").end().children(".fs9").text(result.rating.five);
+                $("#ratingFour").find(".progress-gray>.bar")
+                        .width(result.rating.four/result.rating.total*100 + "%").end().children(".fs9").text(result.rating.four);
+                $("#ratingThree").find(".progress-gray>.bar")
+                        .width(result.rating.three/result.rating.total*100 + "%").end().children(".fs9").text(result.rating.three);
+                $("#ratingTwo").find(".progress-gray>.bar")
+                        .width(result.rating.two/result.rating.total*100 + "%").end().children(".fs9").text(result.rating.two);
+                $("#ratingOne").find(".progress-gray>.bar")
+                        .width(result.rating.one/result.rating.total*100 + "%").end().children(".fs9").text(result.rating.one);
+                $("#mediaComment").after(mediaCommentFn(result)).remove();
+                $("#listComment").html(listCommentFn(result.mediaComment.listComment));
+
+                /*评分表单*/
+                $("#formMakeComments").validate({
+                    submitHandler: submitFormComment
+                });
+
+            });
+
+            $mediaToolbar.find(".btn-group>.btn").tooltip();
+
+            /*点赞事件*/
+            $("#btnPraise").on("click",function(e){
+                e.preventDefault();
+                var $this = $(this);
+                if($this.hasClass("active")){
+                    $this.removeClass("active").attr("data-original-title","赞").children(".num").text(parseInt($this.text())-1);
+                } else {
+                    $this.addClass("active").attr("data-original-title","取消赞").children(".num").text(parseInt($this.text())+1);
+                }
+                //$.post("url",{id: $mediaToolbar.attr("data-fdid")})
+            });
+
+            /*点下载事件*/
+            $("#btnDownload").on("click",function(e){
+                var $this = $(this);
+                if($this.hasClass("disabled")){
+                    e.preventDefault();
+                } else {
+                    //$.post("url",{id: $mediaToolbar.attr("data-fdid")});
+                    $this.children(".num").text(parseInt($this.text())+1);
+                }
+            });
+
+            $("#btnDoPass").on("click",function(e){
+                $("#listMedia>li.active").addClass("pass");
+                $(this).attr("disabled", true);
+                //$.post("url",{id: $mediaToolbar.attr("data-fdid")})
+            });
+        }
+
+
+        /*测试页加载完成后执行方法*/
+        function afterLoadExamOrTaskPage(data){
+
+            var $window = $(window);
+
+            $("#listExamPaper>li>a").click(function(e){
+                e.preventDefault();
+                var $this = $(this);
+                if(($this.attr("data-toggle") == "collapse") && $this.parent().siblings().find(".collapse").hasClass("in")){
+                    if(!confirm("确定要关闭未保存的表单？")){
+                        $this.attr("data-toggle","");
+                    }
+                }
+               /* var pos = $this.parent().offset();
+                var sTop = 0;
+                var $pageHead = $("#pageHeader");
+                sTop = pos.top - 160;alert(pos.top);
+                $("html,body").animate({scrollTop: sTop},pos.top-sTop,"swing");*/
+            });
+
+            //试卷列表折叠 手风琴事件
+            $("#listExamPaper>li>.collapse")
+                    .bind("show",function(){
+                        var $this = $(this);
+                        var tempData = {};
+                        $this.prev(".titBar").addClass("hide");
+                        if(data.type == "exam"){
+                            /*$.getJSON("url",{id: $this.attr("data-fdid")}).success(function(result){
+                             tempData = result;
+                             });*/
+
+                            tempData = {//试卷假数据，完事儿删除
+                                id: "fdid08582300324",
+                                name: "雅思口语强化课程教案解读主试卷",
+                                fullScore: 50,
+                                examPaperTime: 20,
+                                examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                                examPaperStatus: "unfinish",//unfinish, pass, fail, finish
+                                listExam: [
+                                    {
+                                        id: "fdid00000000322",
+                                        index: 0,
+                                        status: "null",//success,error,null
+                                        examScore: 5,
+                                        examType: "single",//single, multiple, completion
+                                        examStem: "2011年前十一个月，某省高新技术产业完成总产值3763.00亿元，实现增加值896.31亿元。增加值同比增长30.74%，比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%。高新技术产业各领域的增加值如下图所示： （5 分） PASS",
+                                        listExamAnswer: [
+                                            {
+                                                index: 3,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%",
+                                                isAnswer: true,
+                                                isChecked: false
+                                            },
+                                            {
+                                                index: 0,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比",
+                                                isAnswer: false,
+                                                isChecked:false
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%",
+                                                isAnswer: false,
+                                                isChecked:false
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比",
+                                                isAnswer: false,
+                                                isChecked:false
+                                            }
+                                        ],
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: "fdid000000003233",
+                                        index: 1,
+                                        status: "null",//success,error,null
+                                        examScore: 5,
+                                        examType: "multiple",//single, multiple, completion
+                                        examStem: "2011年前十一个月，某省高新技术产业完成总产值3763.00亿元，实现增加值896.31亿元。增加值同比增长30.74%，比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%。高新技术产业各领域的增加值如下图所示： （5 分） PASS",
+                                        listExamAnswer: [
+                                            {
+                                                index: 3,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%",
+                                                isAnswer: true,
+                                                isChecked: false
+                                            },
+                                            {
+                                                index: 0,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比",
+                                                isAnswer: false,
+                                                isChecked:false
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%",
+                                                isAnswer: false,
+                                                isChecked:false
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比",
+                                                isAnswer: true,
+                                                isChecked:false
+                                            }
+                                        ],
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: "fdid0003233",
+                                        index: 2,
+                                        status: "success",//success,error,null
+                                        examScore: 5,
+                                        examType: "completion",//single, multiple, completion
+                                        examStem: '2011年前十一个月，某省高新技术产业完成总产值<span class="line"><label for="examAnswerfdid00032330" class="icon-circle-bg" >1</label></span>亿元，实现增加值896.31亿元。增加值同比增长<span class="line"><label for="examAnswerfdid00032331" class="icon-circle-bg" >2</label></span>%，比规模以上工业增加值高11.64个百分点，占规模以上工业增加值的比重达到25.32%。高新技术产业各领域的增加值如下图所示： （5 分） PASS',
+                                        listExamAnswer: ["3763.00","30.74"],
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                            tempData.action = "url";
+                        } else if(data.type == "task"){
+                            /*$.getJSON("url",{id: $this.attr("data-fdid")}).success(function(result){
+                             tempData = result;
+                             });*/
+                            tempData = {//作业包假数据，完事儿删除
+                                id: "fdid08582300324",
+                                name: "雅思口语强化课程教案解读",
+                                fullScore: 50,
+                                examPaperTime: 20,
+                                examPaperIntro: "雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷雅思口语强化课程教 案解读主试卷 雅思口语强化课程教案解读主试卷 雅思口语强化课程教案解读主试卷",
+                                examPaperStatus: "unfinish",//unfinish, pass, fail, finish
+                                listExam: [
+                                    {
+                                        id: "fdid00000000322",
+                                        index: 0,
+                                        status: "finish",//success,error,null,finish
+                                        examType: "uploadWork",//uploadWork, onlineAnswer
+                                        examScore: 5,
+                                        examName: "LA1-雅思听力评分细则",
+                                        examStem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                                        listTaskAttachment: [
+                                            {
+                                                id: "fdid24123212",
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                id: "fdid0000023212",
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            }
+                                        ],
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: "fdid00000000322",
+                                        index: 2,
+                                        status: "error",//success,error,null,finish
+                                        examType: "uploadWork",//uploadWork, onlineAnswer
+                                        examScore: 5,
+                                        examName: "LA1-雅思听力评分细则",
+                                        examStem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                                        teacherRating:{
+                                            teacher: {
+                                                imgUrl: './images/temp-face.jpg',
+                                                link: "#"
+                                            },
+                                            score: 1,
+                                            comment: "作业不太好，加油吧。"
+                                        },
+                                        listTaskAttachment: [
+                                            {
+                                                id: "fdid24123212",
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                id: "fdid0000012",
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            }
+                                        ],
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: "fdid00000000322",
+                                        index: 1,
+                                        status: "success",//success,error,null,finish
+                                        examType: "onlineAnswer",//uploadWork, onlineAnswer
+                                        examScore: 5,
+                                        examName: "LA1-雅思听力评分细则",
+                                        examStem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                                        answer: "这里是答案这里是答案这里是答案这里是答案这里是答案",
+                                        teacherRating:{
+                                            teacher: {
+                                                imgUrl: './images/temp-face.jpg',
+                                                link: "#"
+                                            },
+                                            score: 4,
+                                            comment: "曾经以为，自己会一直这样安逸的生活下去，稳定的工作，和睦的家庭，日子波澜不惊地缓缓流淌偶尔也想动点凡心给自己充充电，但每次都是由于懒散等原因，半途而废。"
+                                        },
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 3,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 2,
+                                                name: "高新技术产业各领域专家分析讲座.mp4",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告2.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: "fdid098976000322",
+                                        index: 3,
+                                        status: "null",//success,error,null,finish
+                                        examType: "onlineAnswer",//uploadWork, onlineAnswer
+                                        examScore: 5,
+                                        examName: "LA1-雅思听力评分细则",
+                                        examStem: "请仔细学习剑4-剑8、雅思全真模拟题试题，然后按照附件中的模板要求，提交雅思听力评分细则作业。本作业建议完成时间为 3 小时。",
+                                        answer: null,
+                                        listAttachment: [
+                                            {
+                                                index: 0,
+                                                name: "高新技术产业各领域增加值饼形图（单位：亿元）.jpg",
+                                                url: "#"
+                                            },
+                                            {
+                                                index: 1,
+                                                name: "高新技术产业各领域咨询报告.pdf",
+                                                url: "#"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                            tempData.action = "url2";
+                        }
+
+                        tempData.type = data.type;
+                        tempData.num = $this.parent().index() + 1;
+                        tempData.examCount = tempData.listExam.length;
+                        var count = 0;
+                        for( var j in tempData.listExam){
+                            if(tempData.listExam[j].status == "success"){
+                                count++;
+                            }
+                        }
+                        tempData.successCount = count;
+
+                        $this.html(examPaperDetailFn(tempData));
+                        //试题列表序号控制
+                        $("#navExams>.num").click(function(e){
+                            e.preventDefault();
+                            var $this = $(this);
+                            var id = $this.attr("href");//alert($(id).offset().top - $("#pageHeader").height() - 60);
+                            $("html,body").animate({scrollTop: $(id).offset().top - $("#pageHeader").height() - 60},"fast","swing");
+                        });
+                       /* $("#navExams>.num").tooltip({
+                                    placement: "bottom"
+                                });*/
+
+
+
+
+                        $this.find("[data-toggle='collapse']").click(function(e){
+                            e.preventDefault();
+                            if($(this).attr("data-toggle") == "collapse" && !confirm("确定要关闭未保存的表单？")){
+                                $(this).attr("data-toggle","");
+                            }
+                        });
+                        $("#formExam").validate();
+                        $this.find(".list-attachment>li .icon-remove-blue").click(function(e){
+                            e.preventDefault();
+                            $(this).closest("li").remove();
+                        })
+                    })
+                    .bind("shown",function(){
+                        var $this = $(this);
+                        var pos = $this.parent("li").offset();
+                        var sTop = 0;
+                        //var $pageHead = $("#pageHeader");
+                            sTop = pos.top - 60 - 60;
+                        $("html,body").animate({scrollTop: sTop},pos.top-sTop,"swing");
+                    })
+                    .bind("hide",function(){
+                        $(this).empty().prev(".titBar").removeClass("hide");
+                        $("#headToolsBar").empty();
+                        $("#listExamPaper>li>a").each(function(){
+                            if($(this).attr("data-toggle") == ""){
+                                $(this).attr("data-toggle","collapse");
+                            }
+                        })
+                    });
+
+        }
+
+
+    });
+
+
+
+</script>
+</body>
+</html>

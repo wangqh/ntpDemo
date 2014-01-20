@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新东方在线教师备课平台</title>
+<link href="css/global.css" rel="stylesheet" type="text/css">
+<link href="css/DTotal.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+
+    <!-- 私信列表 模板 -->
+    <script id="listMsgTemplate" type="text/x-dot-template">
+        {{~it :item}}
+        <li{{?item.hasUnread}} class=""{{?}}><a href="私信-与某人的对话.html?{{=item.id}}">
+            <img src="{{!item.user.imgUrl || './images/default-face-36.png'}}" class="imgFace" alt="{{=item.user.name}}"/>
+            <span class="org">{{=item.user.name}}（{{=item.user.mail}}）    <span title="{{=item.user.org}}">{{=item.user.org.length>10?item.user.org.substr(0,10)+'...':item.user.org}}</span>  <span title="{{=item.user.department}}">{{=item.user.department.length>10?item.user.department.substr(0,10)+'...':item.user.department}}</span></span>
+            <span class="divider">|</span>
+            <span class="counting">全部 <span class="text-info">{{=item.numTotal}}</span> 条 ，{{?item.hasUnread}}其中未读 <span class="text-info">{{=item.numUnread}}</span> 条{{??}}没有未读信息{{?}}</span>
+            <span class="content">{{?item.hasUnread}}<strong>{{=item.msg}}</strong>{{??}}{{=item.msg}}{{?}}</span>
+            <span class="date"><i class="icon-time"></i>{{=item.timeMsg}}</span>
+                            <span class="btns">
+                                <span class="hide">
+                                    <button type="button" class="btn btn-link empty" data-id="{{=item.id}}">清空对话</button>
+                                    <b>|</b>
+                                </span>
+                                <button type="button" class="btn btn-link mailTo" data-target="mailto:{{=item.user.mail}}"><i class="icon-envelope"></i>给TA发邮件</button>
+                            </span>
+        </a></li>
+        {{~}}
+    </script>
+
+    <script src="js/doT.min.js"></script>
+</head>
+
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<a href="#" class="logo"></a>
+	        <ul class="nav">
+	          <li><a href="#">系统管理</a></li>
+	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是主管</a></li>
+	        </ul>
+			
+            <ul class="nav pull-right">
+              <li class="dropdown">
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                	<span class="top-face"><img src="./images/temp-face.jpg" alt=""><i class="icon-disc"></i></span>
+                    <span class="name">杨义锋</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                	<li><a href="#"><i class="icon-home"></i>备课首页</a></li>
+                    <li><a href="私信-我的私信.html"><i class="icon-envelope"></i>我的私信<span class="icon-disc-bg">2</span></a></li>
+                    <li><a href="profile.html"><i class="icon-user"></i>个人资料</a></li>
+                    <li><a href="changePwd.html"><i class="icon-pencil"></i>修改密码</a></li>
+                    <li><a href="#"><i class="icon-off"></i>退出平台</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="btn-off"></a></li>
+            </ul>
+		</div>
+    </div>
+</header>
+
+<section class="container">
+	<section class="clearfix mt20">
+	  <section class="col-left pull-left">
+    	<ul class="nav nav-list sidenav" id="sideNav">
+	            <li class="nav-header first">
+                    <span>私信<b class="caret"></b></span>
+	            </li>
+	            <li class="active"><a href="私信-我的私信.html"><i class="icon-msg"></i>我的私信</a></li>
+	            <li><a href="私信-发私信.html"><i class="icon-msg-edit"></i>发私信</a></li>
+                <li class="nav-header"><a href="私信-发邮件.html">发邮件 <b class="caret"></b></a></li>
+	    </ul>
+	  </section>
+		<section class="w790 pull-right" id="rightCont">
+            <div class="page-header bder2" data-spy="affix" data-offset-top="20">
+                <span class="muted">我正在看：</span>    我的私信
+                <span class="counting">（全部 <span class="text-info">500</span> 条 ，其中未读 <span class="text-info">20</span> 条）</span>
+                <div class="backHome">
+                    <a href="#"><span class="muted">返回</span><span class="muted">首页</span> <i class="icon-home icon-white"></i> </a>
+                </div>
+            </div>
+            <div class="page-body">
+                <section class="box-control">
+                    <div class="hd">
+                        <div class="btn-toolbar">
+                            <button class="btn btn-primary btn-large" type="button">全部标记为已读</button>
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-link" href="私信-发私信.html"><i class="icon-msg-edit"></i>发私信</a>
+                                <span class="divider">|</span>
+                                <a class="btn btn-link" href="#">清空所有私信</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section listWrap listMsgWrap">
+                    <ul class="nav list" id="listMsg">
+                    </ul>
+                </section>
+                <div class="pages">
+                    <div class="btn-group dropup">
+                        <button class="btn btn-primary btn-ctrl" type="button" disabled><i class="icon-chevron-left icon-white"></i></button>
+                        <button class="btn btn-primary btn-num" type="button">1</button>
+                        <button class="btn btn-primary btn-num" type="button">2</button>
+                        <button class="btn btn-primary btn-num" type="button">3</button>
+                        <button class="btn btn-primary btn-num" type="button">4</button>
+                        <button class="btn btn-primary btn-num active" type="button">5</button>
+                        <button class="btn btn-primary btn-num" type="button">6</button>
+                        <button class="btn btn-primary btn-num" type="button">7</button>
+                        <button class="btn btn-primary btn-num" type="button">8</button>
+                        <button class="btn btn-primary btn-num" type="button">9</button>
+                        <button class="btn btn-primary btn-num" type="button">10</button>
+                        <button class="btn btn-primary btn-num  dropdown-toggle"  data-toggle="dropdown" type="button">
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#">11-20</a></li>
+                            <li><a href="#">21-30</a></li>
+                            <li><a href="#">31-40</a></li>
+                        </ul>
+                        <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+                    </div>
+                </div>
+            </div>
+	    </section>
+	</section>
+
+<!--底部 S-->
+	<footer>
+		<div class="navbar clearfix">
+			<div class="nav">
+				<li><a href="http://www.xdf.cn/" target="_blank">新东方网</a></li>
+				<li><a href="http://me.xdf.cn/" target="_blank">知识管理平台</a></li>
+				<li><a href="${ctx }/login">登录</a></li>
+				<li><a href="${ctx }/self_register">注册</a></li>
+				<li class="last"><a href="mailto:yangyifeng@xdf.cn">帮助</a></li>
+			</div>
+            <p style="font-size:13px">&copy; 2013 新东方教育科技集团&nbsp;知识管理中心</p>
+		</div>
+	</footer>
+<!--底部 E-->
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.placeholder.1.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+<script type="text/javascript" src="js/jquery.autocomplete.pack.js"></script>
+<script type="text/javascript">
+$(function(){
+    $.Placeholder.init();
+    //私信列表 模板函数
+    var listMsgFn = doT.template(document.getElementById("listMsgTemplate").text);
+    var listMsgData = [
+        {
+            id: "fdid3232323",
+            user: {
+                imgUrl: "http://img.staff.xdf.cn/Photo/06/3A/a911e1178bf3725acd75ddbb9c7e3a06_9494.jpg",
+                name: "杨小锋",
+                mail: "yangyifeng@xdf.cn",
+                org: "集团总公司集团总公司集团总公司集团总公司集团总公司集团总公司111",
+                department: "知识管理中心知识管理中心知识管理中心知识管理中心知识管理中心知识管理中心"
+            },
+            hasUnread: false,
+            numTotal: 200,
+            msg: "每一个我身边在美国读硕、读博、工作的人看完《中国合伙人》都是这个感想，不知不觉我们都蜕变成了“自干五”每一个我身边在美国读硕、读博、工作的人看完《中国工作的人看完《中国合伙人》都是这个感想。",
+            timeMsg: "2013/12/14 10:01 AM"
+        },
+        {
+            id: "fdid32234",
+            user: {
+                imgUrl: "",
+                name: "刘小鹍",
+                mail: "liukun@xdf.cn",
+                org: "集团总公司",
+                department: "知识管理中心"
+            },
+            hasUnread: true,
+            numTotal: 300,
+            numUnread: 5,
+            msg: "每一个我身边在美国读硕、读博、工作的人看完《中国合伙人》都是这个感想，不知不觉我们都蜕变成了“自干五”每一个我身边在美国读硕、读博、工作的人看完《中国工作的人看完《中国合伙人》都是这个感想。",
+            timeMsg: "2013/12/14 10:01 AM"
+        },
+        {
+            id: "fdid328",
+            user: {
+                imgUrl: "",
+                name: "魏小紫",
+                mail: "weizi5@xdf.cn",
+                org: "广州学校",
+                department: "国外考试部"
+            },
+            hasUnread: false,
+            numTotal: 100,
+            msg: "每一个我身边在美国读硕、读博、工作的人看完《中国合伙人》都是这个感想，不知不觉我们都蜕变成了“自干五”每一个我身边在美国读硕、读博、工作的人看完《中国工作的人看完《中国合伙人》都是这个感想。",
+            timeMsg: "2013/12/14 10:01 AM"
+        }
+    ]
+
+    $("#listMsg").html(listMsgFn(listMsgData))
+            .find(".btns .btn").click(function(e){
+                e.preventDefault();
+                if($(this).hasClass("empty")){//清空当前对话
+                    alert("清空对话"+$(this).attr("data-id"))
+                } else if($(this).hasClass("mailTo")){//发送邮件给TA
+                    window.location.href = $(this).attr("data-target");
+                }
+            });
+});
+</script>
+</body>
+</html>
