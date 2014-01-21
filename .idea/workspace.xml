@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0100eb19-2d2b-4af3-9942-3fc7b23a92e2" name="Default" comment="">
+      <change type="DELETED" beforePath="D:\workspace\xdf\ntp\html\css\bootstrap.min.css" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UpgradeYourBrowser.html" afterPath="$PROJECT_DIR$/UpgradeYourBrowser.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forgot.html" afterPath="$PROJECT_DIR$/forgot.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.html" afterPath="$PROJECT_DIR$/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register.html" afterPath="$PROJECT_DIR$/register.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="html.iws" />
@@ -28,13 +33,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Gruntfile.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Gruntfile.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gruntfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="765" selection-end="765" vertical-scroll-proportion="0.65679014" vertical-offset="114" max-vertical-offset="1672">
+            <state line="22" column="27" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="114" max-vertical-offset="1672">
               <folding>
                 <element signature="e#0#37#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forgot.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/forgot.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="266" selection-end="505" vertical-scroll-proportion="-4.071429" vertical-offset="76" max-vertical-offset="893">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="9" selection-start="858" selection-end="858" vertical-scroll-proportion="-13.571428" vertical-offset="0" max-vertical-offset="950">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpgradeYourBrowser.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UpgradeYourBrowser.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="7" selection-start="451" selection-end="451" vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="684">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/register.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="9" selection-start="609" selection-end="609" vertical-scroll-proportion="0.32846716" vertical-offset="181" max-vertical-offset="4598">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,7 +92,7 @@
       <file leaf-file-name="我的备课主页.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/我的备课主页.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="51" selection-start="4409" selection-end="4409" vertical-scroll-proportion="-13.571428" vertical-offset="1425" max-vertical-offset="14611">
+            <state line="209" column="0" selection-start="9265" selection-end="9351" vertical-scroll-proportion="-17.642857" vertical-offset="3477" max-vertical-offset="14611">
               <folding>
                 <marker date="1390277951235" expanded="true" signature="1001:1014" placeholder="..." />
                 <marker date="1390277951235" expanded="true" signature="1035:1150" placeholder="..." />
@@ -143,10 +184,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/css/iAmMentor.css" />
-        <option value="$PROJECT_DIR$/css/global.css" />
-        <option value="$PROJECT_DIR$/theme/default/css/global.css" />
-        <option value="$PROJECT_DIR$/theme-series/default/css/global.css" />
         <option value="$PROJECT_DIR$/theme-profile/default/css/global.css" />
         <option value="$PROJECT_DIR$/css/DTotal.css" />
         <option value="$PROJECT_DIR$/全部课程首页.html" />
@@ -159,6 +196,10 @@
         <option value="$PROJECT_DIR$/theme-profile/default/css/home-course.css" />
         <option value="$PROJECT_DIR$/我的备课主页.html" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
+        <option value="$PROJECT_DIR$/forgot.html" />
+        <option value="$PROJECT_DIR$/login.html" />
+        <option value="$PROJECT_DIR$/UpgradeYourBrowser.html" />
+        <option value="$PROJECT_DIR$/register.html" />
       </list>
     </option>
   </component>
@@ -252,24 +293,52 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="92" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="122" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="89" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="119" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="110" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="106" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../知识库二期html" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="122" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="909" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="915" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="116" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="116" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="118" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="906" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="912" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="113" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="113" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
@@ -424,7 +493,15 @@
       <created>1390281989131</created>
       <updated>1390281989131</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="更新js, css">
+      <created>1390282373079</created>
+      <updated>1390282373079</updated>
+    </task>
+    <task id="LOCAL-00008" summary="增加js, css min">
+      <created>1390282515829</created>
+      <updated>1390282515829</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -454,15 +531,15 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.60421544" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3088" sideWeight="0.75800157" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7008" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3088" sideWeight="0.75800157" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21311475" sideWeight="0.6704" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24277908" sideWeight="0.6912" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24277908" sideWeight="0.472" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4672" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23185012" sideWeight="0.2176" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.32630756" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3248" sideWeight="0.32630756" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258427" sideWeight="0.6736924" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3248" sideWeight="0.6736924" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -483,7 +560,8 @@
     </option>
     <MESSAGE value="add" />
     <MESSAGE value="更新js, css" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新js, css" />
+    <MESSAGE value="增加js, css min" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加js, css min" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -506,27 +584,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/global.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="94207" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13661">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/jquery.autocomplete.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1083">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/jquery.autocomplete.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="370">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/register.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
@@ -592,16 +649,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theme-profile/default/css/home-course.css">
+    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="23" selection-start="6586" selection-end="6586" vertical-scroll-proportion="-4.6" vertical-offset="2051" max-vertical-offset="3743">
-          <folding />
+        <state line="22" column="27" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0" vertical-offset="114" max-vertical-offset="1672">
+          <folding>
+            <element signature="e#0#37#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/我的备课主页.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="4409" selection-end="4409" vertical-scroll-proportion="-13.571428" vertical-offset="1425" max-vertical-offset="14611">
+        <state line="209" column="0" selection-start="9265" selection-end="9351" vertical-scroll-proportion="-17.642857" vertical-offset="3477" max-vertical-offset="14611">
           <folding>
             <marker date="1390277951235" expanded="true" signature="1001:1014" placeholder="..." />
             <marker date="1390277951235" expanded="true" signature="1035:1150" placeholder="..." />
@@ -653,12 +712,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+    <entry file="file://$PROJECT_DIR$/theme-profile/default/css/home-course.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="765" selection-end="765" vertical-scroll-proportion="0.65679014" vertical-offset="114" max-vertical-offset="1672">
-          <folding>
-            <element signature="e#0#37#0" expanded="false" />
-          </folding>
+        <state line="114" column="23" selection-start="6586" selection-end="6586" vertical-scroll-proportion="-4.6" vertical-offset="2051" max-vertical-offset="3743">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/forgot.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="266" selection-end="505" vertical-scroll-proportion="-4.071429" vertical-offset="76" max-vertical-offset="893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="9" selection-start="858" selection-end="858" vertical-scroll-proportion="-13.571428" vertical-offset="0" max-vertical-offset="950">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpgradeYourBrowser.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="7" selection-start="451" selection-end="451" vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="684">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="9" selection-start="609" selection-end="609" vertical-scroll-proportion="0.32846716" vertical-offset="181" max-vertical-offset="4598">
+          <folding />
         </state>
       </provider>
     </entry>
