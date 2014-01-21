@@ -16,11 +16,11 @@ module.exports = function(grunt){
             },
             dist: {
                 files: {
-                    'dist/js/webimOfSide.min.js': 'js/webimOfSide.js',
-                    'dist/js/jquery.jalert.min.js': 'js/jquery.jalert.js',
-                    'dist/js/jquery.sortable.min.js': 'js/jquery.sortable.js',
-                    'dist/js/messages_zh.min.js': 'js/messages_zh.js',
-                    'dist/js/templDetailPages.min.js': 'js/templDetailPages.js'
+                    'js/webimOfSide.min.js': 'js/webimOfSide.js',
+                    'js/jquery.jalert.min.js': 'js/jquery.jalert.js',
+                    'js/jquery.sortable.min.js': 'js/jquery.sortable.js',
+                    'js/messages_zh.min.js': 'js/messages_zh.js',
+                    'js/templDetailPages.min.js': 'js/templDetailPages.js'
                 }
             }
         },
@@ -28,8 +28,29 @@ module.exports = function(grunt){
             minify: {
                 expand: true,
                 cwd: 'css/',
-                src: ['*.css', '*.*.css', '!*.min.css'],
+                src: ['*.css', '!*.min.css', '!*.*.css'],
                 dest: 'css/',
+                ext: ".min.css"
+            },
+            theme: {
+                expand: true,
+                cwd: 'theme/default/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'theme/default/css/',
+                ext: ".min.css"
+            },
+            theme_profile: {
+                expand: true,
+                cwd: 'theme-profile/default/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'theme-profile/default/css/',
+                ext: ".min.css"
+            },
+            theme_series: {
+                expand: true,
+                cwd: 'theme-series/default/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'theme-series/default/css/',
                 ext: ".min.css"
             }
         },
@@ -60,5 +81,5 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask("test", ["jshint", "qunit"]);
-    grunt.registerTask("default", ["uglify", "cssmin"]);
-}
+    grunt.registerTask("default", ["jshint", "qunit", "uglify", "cssmin"]);
+};

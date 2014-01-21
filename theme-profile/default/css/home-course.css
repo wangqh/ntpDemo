@@ -46,7 +46,7 @@
 .row1{padding: 12px;}
 .profile.media{width: 400px;text-align: left;}
 .profile.media > .pull-left{width: 180px;margin-right: 15px}
-.profile .media-object{width: 180px;}
+.profile .media-object{width: 180px;height: 180px;}
 .profile .media-body {line-height: 24px;}
 .profile .media-body p{margin-bottom: 0}
 .profile .media-heading{margin-bottom: 10px}

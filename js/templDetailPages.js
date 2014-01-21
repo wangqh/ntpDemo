@@ -13,7 +13,7 @@
 		
 		var def = {
 			pageHeader:document.getElementById("contHeaderTemplate").text		
-		}	
+		};
 		//基本信息 模板函数
 		var basicInfoFn = doT.template(document.getElementById("basicInfoTemplate").text, undefined, def);
 		//基本信息  添加关键词表单 模板函数
@@ -105,7 +105,7 @@
                         title: "国外考试新教师在线备课平台介绍"
                     }
                 ]
-            }
+            };
             data.pageTitle = opt.title;
             data.lectureIndex = numParseCN(opt.index);
             data.typeTxt = "视频";
@@ -171,7 +171,7 @@
                 }
             });
             $("#formMedia .btns-radio>.btn").click(function(){
-                  $("#isElective").val(this.id == "elective" );
+                  $("#isElective").val(this.id === "elective" );
             });
             var itemHtml,
                 $listMedia = $("#listMedia"),
@@ -227,15 +227,15 @@
                         addFlag = false;
                     }
                 });
-        }
+        };
 
         function numParseCN(n){
             var num = ["零","一","二","三","四","五","六","七","八","九","十"];
-            n = typeof n == "number" ? n : parseInt(n) ;
+            n = typeof n === "number" ? n : parseInt(n);
             return (n/10)>1 ? (num[n/10] + num[10] + num[n%10]) : num[n];
         }
 
-		//加载删除课程 	
+        /*加载删除课程*/
 		rightCont.loadDeleteCoursePage = function (title, fdid){	
 			
 			data.pageTitle = title;	
@@ -252,9 +252,9 @@
 			});
 				
 			
-		}
+		};
 		
-		//加载授权管理 	
+		//加载授权管理
 		rightCont.loadKinguserPage = function (title){			
 			/*============================================ ajax 加载JSON数据 ================================================*/
 			/*$.getJSON("url?load",function(rsult){
@@ -299,7 +299,7 @@
 						editingCourse: false
 					}
 				]
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除
 			$("#rightCont").html(kinguserFn(data));//ajax 成功后删除
 			
@@ -338,7 +338,7 @@
 					org: "广州学校",
 					department: "国外考试部"
 				}
-			]
+			];
 			/*$("#addUser").autocomplete("url.jsp",{
 				dataType: "json",
 				parse: function(data) {
@@ -355,10 +355,10 @@
 					return item.name + item.mail + item.org + item.department; 
 				},
 				formatItem: function(item) { 
-					return '<img src="' 
-						+ (item.imgUrl || 'images/temp-face36.jpg') + '" alt="">' 
-						+ item.name + '（' + item.mail + '），' 
-						+ item.org + '  ' + item.department; 
+					return '<img src="'+
+                        (item.imgUrl || 'images/temp-face36.jpg') + '" alt="">'+
+                        item.name + '（' + item.mail + '），' +
+                        item.org + '  ' + item.department;
 				},
 				matchContains:true ,
 				max: 10,
@@ -395,9 +395,9 @@
 					alert("保存成功");
 				});*/
 			});
-		}
+		};
 		
-		//加载访问权限 	
+		//加载访问权限
 		rightCont.loadAccessRightPage = function (title){
 			/*============================================ ajax 加载JSON数据 ================================================*/
 			/*$.getJSON("url?load",function(rsult){
@@ -411,7 +411,7 @@
 				permission: "",
 				encryptType: "",
 				coursePwd: ""
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除
 			$("#rightCont").html(accessRightFn(data));//ajax 成功后删除	
 			
@@ -440,11 +440,11 @@
 				}						
 			});	
 			$('#formAccessRight a[data-toggle="tab"]').on('shown', function (e) {
-				var href = 	e.target.href.split("#").pop();		
+                var href = e.target.href.split("#").pop();
 				$("#permission").val(href);
-				$("#encrypt").find("input").not($("#passwordProtect").is(":checked") ? null : $("#coursePwd")).attr("disabled", href != "encrypt");								
+				$("#encrypt").find("input").not($("#passwordProtect").is(":checked") ? null : $("#coursePwd")).attr("disabled", href !== "encrypt");
 			});
-		}
+		};
 		
 		//加载课程推广	
 		rightCont.loadPromotionPage = function (title){
@@ -466,7 +466,7 @@
 					{title: "优能中学", imgUrl: "images/courseSkin-04.png"},
 					{title: "优能小学", imgUrl: "images/courseSkin-05.png"},
                     {title: "默认", imgUrl: "images/courseSkin-default.png"}]
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除
 			$("#rightCont").html(promotionFn(data));//ajax 成功后删除	
 					
@@ -476,7 +476,7 @@
 				$(this).parent().addClass("active").siblings().removeClass("active");
 				$("#courseSkin").val($(this).next("h5").text());
 			});			
-		}
+		};
 		
 		//加载详细信息	
 		rightCont.loadDetailInfoPage = function (title){
@@ -493,7 +493,7 @@
 				learnObjectives: ["了解雅思考试基本情况","了解英国留学基本情况"],
 				suggestedGroup: ["新教师","学校主管"],
 				courseRequirements: ["学习本课程的教师必须通过TELTS考试","准备好3-8教材"]
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除
 			$("#rightCont").html(detailInfoFn(data));//ajax 成功后删除	
 					
@@ -517,16 +517,18 @@
 					
 			});
 			//删除字段列表项事件
-			$("#formDetailInfo .list_alert>.alert").bind("closed",delItem);
-			function delItem(){
+			$("#formDetailInfo .list_alert>.alert").bind("closed",function(){
+                delItem($(this));
+            });
+			function delItem($this){
 				var arr = [];
-				$(this).siblings(".alert").each(function(){
+                $this.siblings(".alert").each(function(){
 					arr.push($(this).children("span").text());
-				})
-				$(this).parent().prev(":hidden").val(arr);
+				});
+                $this.parent().prev(":hidden").val(arr);
 			}			
 			
-		}	
+		};
 		
 		//加载基本信息	
 		rightCont.loadBasicInfoPage = function (title){
@@ -545,7 +547,7 @@
 				keyword: ["雅思","新教师备课"],
 				courseTypeList: ["小学辅导","中学辅导","大学考试","中学辅导","大学考试","多语种","夏冬令营"],
 				courseType: "小学辅导"
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除
 			$("#rightCont").html(basicInfoFn(data));//ajax 成功后删除
 			
@@ -579,12 +581,14 @@
 				}			
 			});
 			//删除关键词事件
-			$("#formBasicInfo .keywordWrap>.alert-tag").bind("closed",delKeyword);
-			function delKeyword(){
+			$("#formBasicInfo .keywordWrap>.alert-tag").bind("closed",function(){
+                delKeyword($(this));
+            });
+			function delKeyword($this){
 				var arr = [];
-				$(this).siblings(".alert-tag").each(function(){
+                $this.siblings(".alert-tag").each(function(){
 					arr.push($(this).children("span").text());
-				})
+				});
 				$("#keyword").val(arr);
 			}
 			//选择课程类型事件
@@ -594,7 +598,7 @@
 				$("#courseType").val($(this).text());
 			});
 			
-		}
+		};
 		
 		//加载章节目录
 		rightCont.loadSectionDirectoryPage = function(title){
@@ -659,7 +663,7 @@
                         isElective: false,
 						type: "video"	
 					}]
-			}
+			};
 			data.pageTitle = title;	//ajax 成功后删除		
 			$("#rightCont").html(loadsectionsDirectoryFn(data));//ajax 成功后删除
 			updataProgressCourses($('#sortable').children(".lecture").length);//ajax 成功后删除		
@@ -734,8 +738,8 @@
 						},"json");
 						*/
 					var tempid = "sectionId0" + Math.random() ;					
-						var data = rtnSectionData($li.hasClass("chapter"),$form.find(".index").text(),$tit.val(),$li.length,"none");
-						$li.attr("data-fdid",tempid)					
+						data = rtnSectionData($li.hasClass("chapter"),$form.find(".index").text(),$tit.val(),$li.length,"none");
+						$li.attr("data-fdid",tempid);
 						$form.before(sectionsFn(data));	
 						$sections.sortable("destroy").sortable({
                             handle: '.sortable-bar',
@@ -746,7 +750,7 @@
 					}			
 					$form.remove();
 				} else {
-					$form.find(".control-group:first").addClass("warning").find(":text").after('<span class="help-block">请填写标题！</span>');;
+					$form.find(".control-group:first").addClass("warning").find(":text").after('<span class="help-block">请填写标题！</span>');
 				}
 			})
 			//绑定取消章节标题编辑按钮事件
@@ -810,7 +814,7 @@
 							index: $sections.children("li").length, 
 							num: $sections.children(".chapter").length + 1
 						}			
-					}		
+					};
 					$sections.append(addSectionsFn(data));			
 				} else {			
 					$sections.children(".chapter").last().find(".form-edit-title .control-group:first").addClass("warning").find(":text").after('<span class="help-block">请先完成未保存的章！</span>');
@@ -824,28 +828,28 @@
 							index: $sections.children("li").length,
 							num: $sections.children(".lecture").length + 1
 						}
-					}		
+					};
 					$sections.append(addSectionsFn(data));			
 				} else {			
 					$sections.children(".lecture").last().find(".form-edit-title .control-group:first").addClass("warning").find(":text").after('<span class="help-block">请先完成未保存的节！</span>');
 				}	
 				
 			});
-		}
+		};
 		
 		//格式化章节数据
 		function rtnSectionData(isChapter,nm,tit,i,typ,fdid){
 			var data = {
 					chapter : undefined,
 					lecture : undefined
-			}
+			};
 			if(isChapter){
 				data.chapter = {
 						id: fdid ,
 						index: i,
 						num: nm,
 						title: tit		
-				}			
+				};
 			} else {
 				data.lecture = {
 						id: fdid ,
@@ -853,7 +857,7 @@
 						num: nm,
 						title: tit,
 						type: typ
-				}			
+				};
 			}
 			return data;
 		}
@@ -866,7 +870,7 @@
 			$prog.find(".num_comp").text(comp);
 			$prog.find(".num_all").text(numAll);
 			if(numAll > 0){
-				if(numAll == comp){
+				if(numAll === comp){
 					enabledPublish();
 				} else {
 					disabledPublish();
@@ -886,6 +890,3 @@
 		}
 		
 	}());
-	
-	
-	

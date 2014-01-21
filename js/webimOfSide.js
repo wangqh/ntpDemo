@@ -2,6 +2,7 @@
  * Created by wqh on 14-1-8.
  */
 $(function(){
+    "use strict";
     //侧边栏 头像列表html
     var sideListFaceFn = doT.template(document.getElementById("sideListFaceTemplate").text);
     var sideListFaceData = {
@@ -54,7 +55,7 @@ $(function(){
             id: "uid737736378388383",
             name: "杨义锋"
         }
-    }
+    };
     //聊天窗口 模板函数
     var chatDialogFn = doT.template(document.getElementById("chatDialogTemplate").text);
     var chatDialogData = {
@@ -66,7 +67,7 @@ $(function(){
             org: "集团总公司",
             department: "知识管理中心"
         }
-    }
+    };
     //聊天纪录列表 模板函数
     var listChatLogFn = doT.template(document.getElementById("listChatLogTemplate").text);
     var listChatData = [
@@ -128,7 +129,7 @@ $(function(){
             ],
             date: "2013/12/14"
         }
-    ]
+    ];
 
     $("body").append(sideListFaceFn(sideListFaceData));
     var $sideListFace = $("#sideListFace");
@@ -147,20 +148,20 @@ $(function(){
     $sideListFace.find(".prev,.next").bind("click",function(e){
         e.preventDefault();
         var $this = $(this);
-        if($(this).hasClass("prev") && $sideListLearner.css("top") != 0 +"px"){
+        if($(this).hasClass("prev") && $sideListLearner.css("top") !== 0 +"px"){
             $sideListLearner.animate({top: parseInt($sideListLearner.css("top"))>-59 ? 0 : "+=59"},"fast","swing",function(){
                 $this.next(".next").removeClass("hide");
-                if($sideListLearner.css("top") == 0 +"px"){
+                if($sideListLearner.css("top") === 0 +"px"){
                     $this.addClass("hide");
                 }
-            })
-        } else if($(this).hasClass("next") && $sideListLearner.css("top") != -hideHeight +"px"){
+            });
+        } else if($(this).hasClass("next") && $sideListLearner.css("top") !== -hideHeight +"px"){
             $sideListLearner.animate({top: hideHeight+parseInt($sideListLearner.css("top"))<59 ? -hideHeight : "-=59"},"fast","swing",function(){
                 $this.prev(".prev").removeClass("hide");
-                if($sideListLearner.css("top") == -hideHeight +"px"){
+                if($sideListLearner.css("top") === -hideHeight +"px"){
                     $this.addClass("hide");
                 }
-            })
+            });
         }
     }).end().find(".side_support_list>li>a, .side_listFace>li>a").bind("click",function(e){
             e.preventDefault();
@@ -183,8 +184,8 @@ $(function(){
                             isMe: true,
                             msg: $("#webim_input").val(),
                             time: d.getHours()+":"+ d.getMinutes()+" "+ (d.getHours()>12 ? "PM" : "AM")
-                        }
-                        if(currDate == listChatData[listChatData.length-1].date ){
+                        };
+                        if(currDate === listChatData[listChatData.length-1].date ){
                             listChatData[listChatData.length-1].list.push(item);
                         } else {
                             listChatData.push({
@@ -198,7 +199,7 @@ $(function(){
                         form.reset();
 
                     }
-                })
+                });
             }
         });
     function formatDate(d){
