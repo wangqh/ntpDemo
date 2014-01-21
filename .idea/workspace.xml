@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0100eb19-2d2b-4af3-9942-3fc7b23a92e2" name="Default" comment="更新js, css" />
-    <list id="82d26ea2-f06d-4924-ae25-3cd65f18ceba" name="Rejected commit: Default" comment="add">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node_modules/grunt-contrib-jshint/node_modules/jshint/node_modules/htmlparser2/lib/FeedHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLinters/jslint.xml" afterPath="$PROJECT_DIR$/.idea/jsLinters/jslint.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="0100eb19-2d2b-4af3-9942-3fc7b23a92e2" name="Default" comment="更新js, css">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="html.iws" />
@@ -412,7 +408,11 @@
       <created>1390281222721</created>
       <updated>1390281222721</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add">
+      <created>1390281365493</created>
+      <updated>1390281365493</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -468,9 +468,9 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add" />
     <MESSAGE value="更新js, css" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新js, css" />
+    <MESSAGE value="add" />
+    <option name="LAST_COMMIT_MESSAGE" value="add" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
