@@ -171,7 +171,7 @@
 .list-face .thumbnails{margin-left:-6px;padding:0 10px;}
 .list-face li{margin-left:6px;margin-bottom:10px;width:36px;}
 .list-face .thumbnail{padding:0;border:none;}
-.list-face .thumbnail img{height: 36px;}
+.list-face .thumbnail img{height: 36px;width: 36px;}
 .list-face h6{margin:0;color:#999;font-weight:normal;}
 .list-face .page-group > a{width:112px;padding:9px 0;text-align:center;display:block;float:left;background-color:#f8f8f8;color:#999;}
 .list-face .page-group .btn-prev{border-right:solid #efefef 1px;}

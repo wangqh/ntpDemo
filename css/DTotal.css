@@ -223,4 +223,5 @@
 .listTeacher li .bd .box .type span{padding: 0 10px;}
 .listTeacher li .bd .box .time{font-size: 12px;color: #bbbbbb;text-align: center;}
 .listTeacher li .bd .box .span3 .person{margin: 20px 0 10px;height: 60px;}
-.listTeacher li .bd .box .span3 .person .pull-left{margin-top: 4px;margin-right: 10px;}
+.listTeacher li .bd .box .span3 .person .pull-left{margin-top: 4px;margin-right: 10px;width: 36px;height: 36px;}
+.listTeacher li .bd .box .span3 .person .pull-left img{height: 36px;}
