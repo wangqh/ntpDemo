@@ -34,6 +34,7 @@
 .icon-face-mentor{background-position: 0 -491px;}
 .side_listFace_md{position: fixed;z-index: 1000;top: 60px;bottom: 0;right: 0;width:63px;background-color: #ffffff;}
 .side_listFace_md ul>li>a{position: relative;}
+.side_listFace_md ul>li>a>img{height: 45px;}
 .side_listFace_md ul>li>a>.icon-disc{position: absolute;top:-5px;right: -4px;}
 .side_listFace_md .side_listFace>li>a>.icon-disc{top:2px;right:5px;}
 .side_listFace_wrap{position: absolute;top: 0;bottom: 271px;width:100%;overflow: hidden;}

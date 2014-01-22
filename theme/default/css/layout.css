@@ -47,6 +47,8 @@
     background-color: #fff;height:36px;margin:0 5px 0 0;padding:12px 0 10px;width:640px;float: left;}
 .page-header h1 .btn{padding: 7px 12px;vertical-align: top;margin-left: 5px;}
 .page-header h1 .btn-success{}
+.page-header h1 a.tit{color: #000000;}
+.page-header h1 a.tit:hover{text-decoration: underline;}
 .page-header .hd>h1 + .btn{margin-right: 0;}
 .page-header.affix{width: 790px;z-index: 3;}
 .page-header.affix .hd{margin:0;background-color: #FFFFFF;border: solid #4491bb 1px;}
@@ -92,6 +94,8 @@
 .listExamPaper li .titBar h2,.listExamPaper .accordion-inner .hd h2{color: #000000;font-size: 14px;line-height:30px;font-weight: normal;margin: 0;}
 .listExamPaper li .titBar p{margin-bottom: 0;}
 .listExamPaper li .titBar .icon-state-bg{position: absolute;right: 30px;top: 25px;}
+.listExamPaper li .titBar .icon-pencil{position: absolute;display:none;right: 80px;top: 30px;}
+.listExamPaper li .titBar:hover .icon-pencil{display:block;}
 .listExamPaper .accordion-inner .hd{padding: 15px 20px 1px;margin-bottom:10px;border-bottom: dashed #cdcdcd 1px;}
 .listExamPaper .accordion-inner .hd h2{margin-bottom: 10px;}
 .listExamPaper .accordion-inner .hd h2 .icon-state-bg{margin-right: 5px}

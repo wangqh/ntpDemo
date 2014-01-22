@@ -73,7 +73,7 @@
                 <i class="icon-chevron-lg-left"></i>
                 <span>上一节</span>
                 </a>
-                <h1>{{=it.courseName}}   节{{=it.num}} {{=it.lectureName}}
+                <h1><a class="tit" href="${ctx}/passThrough/getCourseHome/${courseId}">{{=it.courseName}}</a>   节{{=it.num}} {{=it.lectureName}}
                     <button class="btn{{?it.isOptional || it.status == "pass"}} btn-success{{?}}{{? it.status == "pass" || !it.isOptional}} disabled{{?}}"{{?it.isOptional}} id="btnOptionalLecture"{{?}}><i class="icon-right"></i>学习通过</button>
                 </h1>
                 <a class="btn disabled" href="#button" id="nextLecture">
@@ -126,6 +126,7 @@
                         {{??paper.examPaperStatus == 'pass'}} success">通过
                         {{??paper.examPaperStatus == 'finish'}} info">答完
                         {{??paper.examPaperStatus == 'unfinish'}}">待答{{?}}</span>
+                        <i class="icon-pencil"></i>
                     </a>
                     <div id="examPaper{{=index+1}}" data-fdid="{{=paper.id}}" class="accordion-body collapse">
 
@@ -625,7 +626,7 @@
 			<a href="#" class="logo"></a>
 	        <ul class="nav">
 	          <li><a href="#">系统管理</a></li>
-	          <li><a href="#">我是导师</a></li>
+	          <li><a href="#">我是导师 <i class="icon-disc"></i></a></li>
 	          <li><a href="#">我是主管</a></li>
 	        </ul>
 			

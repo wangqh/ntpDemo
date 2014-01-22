@@ -99,6 +99,8 @@ input.error:focus,textarea.error:focus{border-color#f39800;-webkit-box-shadow:in
     -moz-box-shadow: inset 2px 2px 1px rgba(0, 0, 0, .15);
     box-shadow: inset 2px 2px 1px rgba(0, 0, 0, .15);border-radius: 3px;}
 .navbar-fixed-top .nav li a.btn-publish:hover{background-color: #f39800;}
+.navbar-fixed-top .nav li a{position: relative}
+.navbar-fixed-top .nav li a > .icon-disc{position:absolute;top:14px;right:14px;}
 
 /*底部*/
 footer{border-top:solid #ddd 1px;margin-top:30px;}
