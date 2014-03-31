@@ -54,8 +54,8 @@
             <div class="hd navbar">
                 <div class="navbar-inner">
                     <ul class="nav" id="navCourse">
-                        <li class="active"><a href="#doing">进行中的</a></li>
-                        <li><a href="#finish">已完成的</a></li>
+                        <li class="active"><a href="#" id="doing">进行中的</a></li>
+                        <li><a href="#" id="finish">已完成的</a></li>
                     </ul>
                 </div>
             </div>
@@ -269,9 +269,9 @@
         $("#navCourse>li>a").click(function(e){
             e.preventDefault();
             $(this).parent().addClass("active").siblings().removeClass("active");
-            if($(this).attr("href").substring(1) == "doing"){//进行中的
+            if($(this).attr("id") == "doing"){//进行中的
                 alert("ajax进行中的");
-            } else if($(this).attr("href").substring(1) == "finish"){//已完成的
+            } else if($(this).attr("id") == "finish"){//已完成的
                 alert("ajax已完成的");
             }
         })
