@@ -266,7 +266,24 @@
 		            	</span>	
 						<span class="txt"><span>20%</span>，剩余时间：<span>00:00:29</span></span>	
 						<button class="btn btn-primary btn-large" type="button" >上传</button>
-					</div>		
+					</div>
+				    <label class="pr">
+				    	选择封面
+				    	<div class="pages">
+	                        <div class="btn-group">
+	                            <button class="btn btn-primary btn-ctrl" type="button" disabled=""><i class="icon-chevron-left icon-white"></i></button>
+	                            <button class="btn btn-primary btn-ctrl" type="button"><i class="icon-chevron-right icon-white"></i></button>
+	                        </div>
+	                    </div>
+				    </label>
+				    
+					<div class="courseSkins coverList">
+						<ul class="nav courseSkinList clearfix">
+							{{~ it.coverList :cover:index}}
+								 <li><a href="#"><img src="{{=cover.imgUrl}}" alt="{{=cover.title}}" /><i class="icon-right"></i></a><h5>{{=cover.title}}</h5></li>
+							{{~}}                    	                  
+						</ul>
+					</div>
 	       </div>		  
 		   <div class="courseSkins">
 		   		 <label >课程皮肤</label>

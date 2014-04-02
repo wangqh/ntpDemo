@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0100eb19-2d2b-4af3-9942-3fc7b23a92e2" name="Default" comment="update">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/banner.png" afterPath="$PROJECT_DIR$/images/banner.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/banner.psd" afterPath="$PROJECT_DIR$/images/banner.psd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/login_title.png" afterPath="$PROJECT_DIR$/images/login_title.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/logo.png" afterPath="$PROJECT_DIR$/images/logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/default/images/logo.png" afterPath="$PROJECT_DIR$/theme/default/images/logo.png" />
+    <list default="true" id="0100eb19-2d2b-4af3-9942-3fc7b23a92e2" name="Default" comment="">
+      <change type="DELETED" beforePath="D:\workspace\xdf\ntp\html\html.rar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/DTotal.css" afterPath="$PROJECT_DIR$/css/DTotal.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/DTotal.min.css" afterPath="$PROJECT_DIR$/css/DTotal.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/iAmMentor.css" afterPath="$PROJECT_DIR$/css/iAmMentor.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/iAmMentor.min.css" afterPath="$PROJECT_DIR$/css/iAmMentor.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/templDetailPages.js" afterPath="$PROJECT_DIR$/js/templDetailPages.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/template_detail.css" afterPath="$PROJECT_DIR$/css/template_detail.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/template_detail.min.css" afterPath="$PROJECT_DIR$/css/template_detail.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/我是导师-学习跟踪首页.html" afterPath="$PROJECT_DIR$/我是导师-学习跟踪首页.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/我的课程首页.html" afterPath="$PROJECT_DIR$/我的课程首页.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/模板详情.html" afterPath="$PROJECT_DIR$/模板详情.html" />
     </list>
     <ignored path="html.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,24 +62,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="global.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/theme-series/default/css/global.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="80" selection-start="94935" selection-end="94935" vertical-scroll-proportion="0.0" vertical-offset="1919" max-vertical-offset="2451">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Gruntfile.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="11" selection-start="103" selection-end="106" vertical-scroll-proportion="0.06333333" vertical-offset="76" max-vertical-offset="1710">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="home_zht.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/theme/default/css/home_zht.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -121,10 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DTotal.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DTotal.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/DTotal.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="226" column="69" selection-start="15777" selection-end="15777" vertical-scroll-proportion="0.0" vertical-offset="4294" max-vertical-offset="4408">
+            <state line="218" column="59" selection-start="15085" selection-end="15085" vertical-scroll-proportion="1.2733333" vertical-offset="3969" max-vertical-offset="4617">
               <folding />
             </state>
           </provider>
@@ -164,12 +141,12 @@
         <option value="$PROJECT_DIR$/css/global.css" />
         <option value="$PROJECT_DIR$/theme-profile/default/css/global.css" />
         <option value="$PROJECT_DIR$/theme-series/default/css/global.css" />
-        <option value="$PROJECT_DIR$/css/DTotal.css" />
         <option value="$PROJECT_DIR$/theme/default/css/webimOfSide.css" />
         <option value="$PROJECT_DIR$/theme-profile/default/css/webimOfSide.css" />
         <option value="$PROJECT_DIR$/theme/default/css/home_zht.css" />
         <option value="$PROJECT_DIR$/theme-profile/default/css/home-course.css" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
+        <option value="$PROJECT_DIR$/css/DTotal.css" />
       </list>
     </option>
   </component>
@@ -233,16 +210,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Problems" />
         <subPane subId="Tests" />
@@ -255,20 +222,54 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="89" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="119" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="106" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="118" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="906" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="912" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="906" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="113" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="113" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -281,8 +282,8 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
     <property name="options.lastSelected" value="Settings.JavaScript.Linters.JSHint" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
     <property name="TODO_SCOPE" value="All" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
@@ -302,14 +303,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.素材库-试卷详情页.html">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -320,8 +313,12 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -331,8 +328,8 @@
       <setting name="preferredDebugBrowser" value="CHROME" />
       <method />
     </configuration>
-    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
-      <node-js-remote-debug />
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="NodeunitConfigurationType" factoryName="Nodeunit">
@@ -345,11 +342,11 @@
       <setting name="jsFile" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
+      <node-js-remote-debug />
       <method />
     </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
-      <browser start="false" url="" with-js-debugger="false" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="XSLT" factoryName="XSLT">
@@ -366,6 +363,10 @@
       <OutputType value="CONSOLE" save-to-file="false" />
       <FileType name="XML" />
       <JdkChoice value="FROM_MODULE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <browser start="false" url="" with-js-debugger="false" />
       <method />
     </configuration>
     <configuration default="false" name="素材库-试卷详情页.html" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true" uri="http://localhost:49502/html/素材库-试卷详情页.html">
@@ -476,14 +477,14 @@
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4416" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4416" sideWeight="0.6049961" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.60421544" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3088" sideWeight="0.75800157" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21311475" sideWeight="0.6704" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24277908" sideWeight="0.5584" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4672" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23185012" sideWeight="0.2176" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3248" sideWeight="0.32630756" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4416" sideWeight="0.3950039" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3216" sideWeight="0.6736924" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -573,20 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theme-profile/default/css/global.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="0" selection-start="95287" selection-end="95287" vertical-scroll-proportion="0.0" vertical-offset="14548" max-vertical-offset="15333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/DTotal.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="69" selection-start="15777" selection-end="15777" vertical-scroll-proportion="0.0" vertical-offset="4294" max-vertical-offset="4408">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/theme-profile/default/css/webimOfSide.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="55" selection-start="2368" selection-end="2368" vertical-scroll-proportion="0.0" vertical-offset="684" max-vertical-offset="1957">
@@ -613,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theme-series/default/css/global.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="80" selection-start="94935" selection-end="94935" vertical-scroll-proportion="0.0" vertical-offset="14039" max-vertical-offset="15162">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/theme-profile/default/css/home-course.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="182" column="60" selection-start="10776" selection-end="10776" vertical-scroll-proportion="0.0" vertical-offset="3458" max-vertical-offset="3648">
@@ -629,7 +609,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="11" selection-start="103" selection-end="106" vertical-scroll-proportion="0.06333333" vertical-offset="76" max-vertical-offset="1710">
+        <state line="5" column="11" selection-start="103" selection-end="106" vertical-scroll-proportion="0.31666666" vertical-offset="0" max-vertical-offset="1710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theme-series/default/css/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="80" selection-start="94935" selection-end="94935" vertical-scroll-proportion="41.553333" vertical-offset="2164" max-vertical-offset="15162">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theme-profile/default/css/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="0" selection-start="95287" selection-end="95287" vertical-scroll-proportion="0.0" vertical-offset="14548" max-vertical-offset="15333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/DTotal.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="218" column="59" selection-start="15085" selection-end="15085" vertical-scroll-proportion="1.2733333" vertical-offset="3969" max-vertical-offset="4617">
           <folding />
         </state>
       </provider>

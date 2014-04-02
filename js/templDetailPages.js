@@ -458,6 +458,13 @@
 			data = {//ajax 成功后删除
 				action: "#",//form表单action			
 				coverUrl: "",
+				coverList: [
+					{title: "国外考试", imgUrl: "images/courseSkin-01.png"},
+					{title: "国内考试", imgUrl: "images/courseSkin-02.png"},
+					{title: "英语学习", imgUrl: "images/courseSkin-03.png"},
+					{title: "优能中学", imgUrl: "images/courseSkin-04.png"},
+					{title: "优能小学", imgUrl: "images/courseSkin-05.png"}
+				],
 				courseSkin: {title: "国内考试"},
 				courseSkinList: [
 					{title: "国外考试", imgUrl: "images/courseSkin-01.png"},
@@ -474,7 +481,11 @@
 			$("#formPromotion .courseSkinList>li>a").bind("click",function(e){
 				e.preventDefault();
 				$(this).parent().addClass("active").siblings().removeClass("active");
-				$("#courseSkin").val($(this).next("h5").text());
+				if($(this).closest(".courseSkins").hasClass("coverList")){//封面列表
+					$("#courseCover").val($(this).children("img").attr("src"))
+				} else{//皮肤列表
+					$("#courseSkin").val($(this).next("h5").text());
+				}
 			});			
 		};
 		

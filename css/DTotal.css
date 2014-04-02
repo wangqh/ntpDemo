@@ -100,7 +100,7 @@
 .listWrap .list>li>a:hover .btns .hide{display: inline;}
 .listWrap .list>li>a .icon-transforming{background-color: #a2c8dd;margin-left: 5px;}
 .listWrap .list>li>a .label{vertical-align: top;margin-left: 5px;}
-.listWrap .list>li>a .state-dragable{right: 27px; top:27px;}
+.listWrap .list>li>a .state-dragable{right: 27px; top:17px;}
 .listWrap .list>li>a .content{display: block;color: #000000;line-height: 25px;margin: 15px 0;}
 .listWrap .list>li>a .imgFace{width: 36px;height: 36px;margin-right: 8px;}
 .listWrap .list>li>a .counting,.page-header .counting{color: #8a8a8a;margin-left: 10px;}
