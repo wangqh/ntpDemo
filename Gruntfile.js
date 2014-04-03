@@ -32,11 +32,18 @@ module.exports = function(grunt){
                 dest: 'css/',
                 ext: ".min.css"
             },
-            theme: {
+            theme_default: {
+                    expand: true,
+                    cwd: 'theme/default/css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'theme/default/css/',
+                    ext: ".min.css"
+            },
+            theme_ucan: {
                 expand: true,
-                cwd: 'theme/',
-                src: ['*/css/*.css', '*/css/!*.min.css'],
-                dest: 'theme/',
+                cwd: 'theme/ucan/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'theme/ucan/css/',
                 ext: ".min.css"
             },
             theme_profile: {
