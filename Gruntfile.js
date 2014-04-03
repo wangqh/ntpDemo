@@ -34,9 +34,9 @@ module.exports = function(grunt){
             },
             theme: {
                 expand: true,
-                cwd: 'theme/default/css/',
-                src: ['*.css', '!*.min.css'],
-                dest: 'theme/default/css/',
+                cwd: 'theme/',
+                src: ['*/css/*.css', '*/css/!*.min.css'],
+                dest: 'theme/',
                 ext: ".min.css"
             },
             theme_profile: {
